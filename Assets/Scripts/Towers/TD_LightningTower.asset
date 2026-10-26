@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61ac67f804dc98243bb2150eb94c09f6, type: 3}
+  m_Name: TD_LightningTower
+  m_EditorClassIdentifier: Assembly-CSharp::TowerData
+  towerName: LightingTower
+  cost: 5
+  maxHealth: 350
+  color: {r: 0.8411073, g: 0.8773585, b: 0.053800307, a: 1}
+  attackType: 3
+  damage: 25
+  range: 7
+  attackPerSecond: 1
+  projectileSpeed: 15
+  arearadius: 0
+  coneAngle: 10
+  chainTargets: 3
