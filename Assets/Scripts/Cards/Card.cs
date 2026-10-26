@@ -4,7 +4,7 @@ using UnityEngine;
 public class Card : MonoBehaviour
 {
     CardVisuliser visuliser;
-    [SerializeField] CardData data;
+    CardData data;
 
     public void Init(CardData cd)
     {

@@ -312,7 +312,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 102}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2740791174566185787
 MonoBehaviour:
@@ -340,7 +340,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0f9dc95a43d0584386976a8d930ca60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Card
-  data: {fileID: 0}
 --- !u!1 &6609673158276111400
 GameObject:
   m_ObjectHideFlags: 0

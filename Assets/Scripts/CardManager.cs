@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,53 +10,31 @@ public class CardManager : MonoBehaviour
     [SerializeField] GameObject cardPrefeb;
 
     public List<Card> cards = new();
-    public List<CardData> cardsInDeck = new();
 
     [SerializeField] Transform AgentStartPoint;
 
-    [Header("Cards")]
-    [SerializeField] int maxCardsInHand = 2;
-    [SerializeField] Transform CartParent;
-
-    public void Init()
+    void Start()
     {
         MUT = 0;
     }
-
-    public void GiveStarterCards(int count)
-    {
-        CardData[] c = Resources.LoadAll<CardData>("");
-        for (int i = 0; i < count; i++)
-        {
-            GiveCard(c[Random.Range(0, c.Length)]);
-        }
-    }
-
+    
     public void GiveCard(CardData card)
-    { 
-        if (cards.Count < maxCardsInHand)
+    {
+        if (cardPrefeb == null)
         {
-            if (cardPrefeb == null)
-            {
-                Debug.LogError("Card Prefeb not asinged in inspector!");
-                return;
-            }
+            Debug.LogError("Card Prefeb not asinged in inspector!");
+            return;
+        }   
+        
+        GameObject g = Instantiate(cardPrefeb);
+        Card c = g.GetComponent<Card>();
 
-            GameObject g = Instantiate(cardPrefeb, CartParent);
-            Card c = g.GetComponent<Card>();
-
-            if (c == null)
-            {
-                Debug.LogError("Card Prefeb with missing [Card.cs] script!");
-                return;
-            }
-            cards.Add(c);
-            c.Init(card);
-        }
-        else
+        if (c == null)
         {
-            cardsInDeck.Add(card);
+            Debug.LogError("Card Prefeb with missing [Card.cs] script!");
+            return;
         }
+        c.Init(card);
     }
 
     public void PlaceCard(Card card)
