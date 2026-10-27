@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New BasicTroop", menuName = "Troops/BasicTroop")]
 public class Troop : ScriptableObject
 {
-    [SerializeField] GameObject prefab;
+    //[SerializeField] GameObject prefab;
 
     [SerializeField, Min(1)] float maxHealth = 100;
     public float MaxHealth

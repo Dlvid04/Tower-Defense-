@@ -88,7 +88,16 @@ public class CardManager : MonoBehaviour
         }
     }
 
-    public void PlaceCard(Card card)
+    public void RefillCards()
+    {
+        if (cardsInDeck.Count >= 1)
+        {
+            GiveCard(cardsInDeck[0]);
+            cardsInDeck.RemoveAt(0);
+        }
+    }
+
+    public bool PlaceCard(Card card)
     {
         if (card != null)
         {
@@ -97,10 +106,13 @@ public class CardManager : MonoBehaviour
                 ChageMUT(-card.GetCost());
 
                 card.PlaceAgents(AgentStartPoint.position);
-                Destroy(card);
+                Destroy(card.gameObject);
                 cards.Remove(card);
+                RefillCards();
+                return true;
             }
         }
+        return false;
     }
 
     public void ChageMUT(int value)

@@ -15,5 +15,5 @@ MonoBehaviour:
   cardName: Card 3
   cardDescription: Card Description
   placeCost: 1
-  prefab: {fileID: 11400000, guid: 08853254eacc3844b8bdc85a753f19f3, type: 2}
+  agent: {fileID: -4727530154614613260, guid: 177f9a37c41736e48bacace7e51f0c1d, type: 3}
   troopCount: 1

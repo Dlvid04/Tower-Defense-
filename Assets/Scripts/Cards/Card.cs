@@ -10,7 +10,7 @@ public class Card : MonoBehaviour
 
     RectTransform rt;
     CardVisuliser visuliser;
-    CardData data;
+    [SerializeField] CardData data;
 
     Vector3 target = -Vector3.one;
     Vector3 scale = Vector3.one;
@@ -46,18 +46,19 @@ public class Card : MonoBehaviour
     {
         for (int i = 0; i < data.troopCount; i++)
         {
-            Instantiate(data.prefab, position, Quaternion.identity);
+            Instantiate(data.agent.gameObject, position, Quaternion.identity);
         }
     }
     public float sdf;
     void Update()
     {
+        Vector2 mp = GameManager.InputActions.UI.Point.ReadValue<Vector2>();
+
+        Vector2 min = new Vector2(rt.position.x - (rt.rect.width * rt.lossyScale.x / 2), rt.position.y - (rt.rect.height * rt.lossyScale.y / 2));
+        Vector2 max = new Vector2(rt.position.x + (rt.rect.width * rt.lossyScale.x / 2), rt.position.y + (rt.rect.height * rt.lossyScale.y / 2));
+
         if (GameManager.InputActions.UI.Click.IsPressed())
         {
-            Vector2 mp = GameManager.InputActions.UI.Point.ReadValue<Vector2>();
-
-            Vector2 min = new Vector2(rt.position.x - (rt.rect.width * rt.lossyScale.x / 2), rt.position.y - (rt.rect.height * rt.lossyScale.y / 2));
-            Vector2 max = new Vector2(rt.position.x + (rt.rect.width * rt.lossyScale.x / 2), rt.position.y + (rt.rect.height * rt.lossyScale.y / 2));
 
             if (!draged && (mp.x > min.x && mp.x < max.x && mp.y > min.y && mp.y < max.y))
             {
@@ -72,21 +73,38 @@ public class Card : MonoBehaviour
         }
         else if(draged)
         {
-            Vector2 mp = GameManager.InputActions.UI.Point.ReadValue<Vector2>();
 
-            RaycastHit hit;
-            if(Physics.Raycast(Camera.main.ScreenPointToRay(mp), out hit))
+            if (!(mp.x > min.x && mp.x < max.x && mp.y > min.y && mp.y < max.y))
             {
-                Debug.DrawLine(Camera.main.transform.position, hit.point, Color.green, 5);
+                RaycastHit hit;
+                if (Physics.Raycast(Camera.main.ScreenPointToRay(mp), out hit))
+                {
+                    Debug.DrawLine(Camera.main.transform.position, hit.point, Color.green, 5);
+                    if(CardManager.Instance.PlaceCard(this))
+                        return;
+                }
             }
 
-            target = transform.position;
+            target = -Vector3.one;
+            draged = false;
+            scale = Vector3.one;
+        }
+        if (GameManager.InputActions.UI.RightClick.IsPressed())
+        {
+            target = -Vector3.one;
             draged = false;
             scale = Vector3.one;
         }
 
-        if(target != -Vector3.one)
-        MovingTransform.position = Vector3.MoveTowards(MovingTransform.position, target, Time.deltaTime * Mathf.Min(Vector3.Distance(MovingTransform.position, target), 500) * 10);
+        if (target != -Vector3.one)
+        {
+            MovingTransform.position = Vector3.MoveTowards(MovingTransform.position, target, Time.deltaTime * Mathf.Min(Vector3.Distance(MovingTransform.position, target), 500) * 10);
+        }
+        else
+        {
+            MovingTransform.position = Vector3.MoveTowards(MovingTransform.position, transform.position, Time.deltaTime * Mathf.Min(Vector3.Distance(MovingTransform.position, transform.position), 500) * 10);
+        }
+
         MovingTransform.localScale = Vector3.MoveTowards(MovingTransform.localScale, scale, Time.deltaTime * 10);
     }
     //void drawpoint(Vector3 p, Color c)
