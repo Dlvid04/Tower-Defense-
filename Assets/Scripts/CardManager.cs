@@ -1,30 +1,60 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class CardManager : MonoBehaviour
 {
-    public static int MUT;
+    static CardManager instance;
+    public static CardManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindFirstObjectByType<CardManager>();
+            }
+            return instance;
+        }
+    }
 
+    static int mut;
+    public static int MUT
+    {
+        get { return mut; }
+        set { mut = Mathf.Clamp(value, 0, 10); }
+    }
+
+    [Header("Visuals")]
+    [SerializeField] TMP_Text MutVisual;
+
+
+    [Header("Setup")]
     [SerializeField] GameObject cardPrefeb;
-
-    public List<Card> cards = new();
-    public List<CardData> cardsInDeck = new();
-
     [SerializeField] Transform AgentStartPoint;
     [SerializeField] Transform CartParent;
 
+
+    [Header("Settings")]
+    [SerializeField] int StartCardCount = 4;
     [SerializeField] int MaxCardsInHand = 2;
+
+
+    [Header("Debug")]
+    public List<Card> cards = new();
+    public List<CardData> cardsInDeck = new();
 
     void Start()
     {
+        instance = this;
         MUT = 0;
+        UpdateMUTDislpay();
     }
 
-    public void GiveStarterCards(int count)
+    public void GiveStarterCards()
     {
         CardData[] d = Resources.LoadAll<CardData>("");
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < StartCardCount; i++)
         {
             GiveCard(d[Random.Range(0, d.Length)]);
         }
@@ -64,10 +94,23 @@ public class CardManager : MonoBehaviour
         {
             if (card.CanPlace())
             {
+                ChageMUT(-card.GetCost());
+
                 card.PlaceAgents(AgentStartPoint.position);
                 Destroy(card);
                 cards.Remove(card);
             }
         }
+    }
+
+    public void ChageMUT(int value)
+    {
+        MUT += value;
+        UpdateMUTDislpay();
+    }
+
+    public void UpdateMUTDislpay()
+    {
+        MutVisual.text = "Mut: " + MUT;
     }
 }

@@ -1,10 +1,23 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
+    static Input_TowerDefence inputActions;
+    public static Input_TowerDefence InputActions
+    {
+        get
+        {
+            if (inputActions == null)
+                inputActions = new();
+            return inputActions;
+        }
+    }
+
     public static GameManager instance;
 
     [SerializeField] CardManager cardManager;
+
 
     int lives = 3;
     public int Lives
@@ -13,8 +26,14 @@ public class GameManager : MonoBehaviour
         set { lives = value; }
     }
 
+
+
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Confined;
+
+        InputActions.Enable();
+
         instance = this;
         StartGame();
     }
@@ -29,7 +48,8 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Starting new round");
 
-        // make 4 cards
-        cardManager.GiveStarterCards(4);
+        cardManager.GiveStarterCards();
+
+        TimeManager.StartRoundTimer();
     }
 }
