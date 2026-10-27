@@ -4,6 +4,7 @@ using UnityEngine;
 public class TowerAI : MonoBehaviour
 {
     public TowerAIData data;
+    public bool buildStartTowerOnStart = true;
 
     [SerializeField] int mut;
 
@@ -22,11 +23,15 @@ public class TowerAI : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Kein LaneEnd in der Szene gefunden!");
+            Debug.LogWarning("LaneEnd is nowhere to be found in the scene!");
         }
 
         mut = data.startMut;
-        BuildStartTower();
+
+        if (buildStartTowerOnStart)
+        {
+            BuildStartTower();
+        }
     }
 
     void Update()
@@ -46,12 +51,13 @@ public class TowerAI : MonoBehaviour
         mut = Mathf.Min(mut + amount, data.maxMut);
     }
 
-    [ContextMenu("Test: Truppe getötet")]
+    [ContextMenu("Test: Enemy killed")]
     public void OnTroopKilled()
     {
         AddMut(data.killReward);
     }
 
+    [ContextMenu("Test: Build a Start Tower")]
     public void BuildStartTower()
     {
         List<BuildSlot> freeSlots = GetFreeSlots();
@@ -62,7 +68,7 @@ public class TowerAI : MonoBehaviour
 
         BuildSlot slot = freeSlots[Random.Range(0, freeSlots.Count)];
         slot.Build(data.startTower.gameObject);
-        Debug.Log("KI: Startturm " + data.startTower.data.towerName + " auf " + slot.name);
+        Debug.Log("KI: Start Tower! " + data.startTower.data.towerName + " on " + slot.name);
     }
 
     void TryBuild()
