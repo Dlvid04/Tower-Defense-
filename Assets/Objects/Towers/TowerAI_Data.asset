@@ -23,9 +23,9 @@ MonoBehaviour:
   defaultTower: {fileID: 5612846168527526486, guid: 74a65dc0173b3ee48bff8247a1bcf11d, type: 3}
   groupTower: {fileID: 6390244117287478487, guid: 57ede7a61bb5ae046802973da581030b, type: 3}
   counterTable:
-  - troop: {fileID: 11400000, guid: 0289d09d36fcf4e44bd3d4ebe66c0c41, type: 2}
+  - troop: {fileID: 11400000, guid: b14a723120e80144da49d3baf0f7a9eb, type: 2}
     counterTower: {fileID: 5612846168527526486, guid: 74a65dc0173b3ee48bff8247a1bcf11d, type: 3}
-  - troop: {fileID: 11400000, guid: 0c98110c056c2eb4fb8581e8d0c30ce1, type: 2}
+  - troop: {fileID: 11400000, guid: 929ee944d31890749b86edb73dd39250, type: 2}
     counterTower: {fileID: 2354000168337972483, guid: 7d999252815551341898dd1a44b87f6b, type: 3}
-  - troop: {fileID: 11400000, guid: 792088aecaee933419e266db0957963a, type: 2}
+  - troop: {fileID: 11400000, guid: 4fcdba2da4a72c047b78b6ed778d164c, type: 2}
     counterTower: {fileID: 1760029749677614660, guid: a534493836b30084998f1253ce4664f0, type: 3}

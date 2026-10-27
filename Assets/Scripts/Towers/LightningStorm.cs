@@ -48,6 +48,22 @@ public class LightningStorm : MonoBehaviour
 
     void Strike(Vector3 point)
     {
+        TroopAgent lightningRod = TroopAgent.FindLightningRod(point);
+        if (lightningRod != null)
+        {
+            Tower nearestTower = DamageHelper.FindNearestTower(lightningRod.transform.position);
+            if (nearestTower != null)
+            {
+                Debug.DrawLine(lightningRod.transform.position, nearestTower.transform.position, Color.yellow, 1f);
+                Debug.Log("Sturmbrecher leitet den Blitz auf " + nearestTower.data.towerName + " um");
+
+                GameObject rodVisual = Instantiate(strikeVisualPrefab, nearestTower.transform.position, Quaternion.identity);
+                Destroy(rodVisual, data.visualDuration);
+
+                DamageHelper.DealDamageToTower(nearestTower, data.damage);
+                return;
+            }
+        }
         List<GameObject> targets = new List<GameObject>();
 
         Tower[] allTowers = FindObjectsByType<Tower>(FindObjectsSortMode.None);
@@ -68,7 +84,7 @@ public class LightningStorm : MonoBehaviour
         Vector3 hitPosition = point;
         if (targets.Count == 0)
         {
-            Debug.Log("Blitz schlägt in den Boden ein");
+            Debug.Log("Blitz schlï¿½gt in den Boden ein");
         }
         else
         {
@@ -82,7 +98,9 @@ public class LightningStorm : MonoBehaviour
             }
             else
             {
-                DamageHelper.DealDamage(target.GetComponent<TroopAgent>(), data.damage);
+                TroopAgent hitTroop = target.GetComponent<TroopAgent>();
+                float damage = data.damage * hitTroop.troop.lightningDamageFactor;
+                DamageHelper.DealDamage(hitTroop, damage, false);   
             }
         }
 
