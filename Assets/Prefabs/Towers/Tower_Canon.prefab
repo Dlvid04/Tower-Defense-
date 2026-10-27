@@ -112,7 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Tower
   data: {fileID: 11400000, guid: bc2172eee776fb74cb6017089608a642, type: 2}
   firePoint: {fileID: 3743310864232385257}
-  projectilePrefab: {fileID: 6593419706056641049, guid: d5313998c79787648bc8ea25ed148756, type: 3}
+  projectilePrefab: {fileID: 90767986972771250, guid: d5313998c79787648bc8ea25ed148756, type: 3}
   attackEffectPrefab: {fileID: 0}
   attackEffectDuration: 0.2
 --- !u!136 &963505249980782775
