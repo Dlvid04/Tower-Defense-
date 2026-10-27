@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61ac67f804dc98243bb2150eb94c09f6, type: 3}
+  m_Name: TD_FlameTower
+  m_EditorClassIdentifier: Assembly-CSharp::TowerData
+  towerName: FlameTower
+  cost: 4
+  maxHealth: 400
+  color: {r: 0.8679245, g: 0.020469915, b: 0.020469915, a: 1}
+  attackType: 2
+  damage: 8
+  range: 10
+  attacksPerSecond: 1
+  projectileSpeed: 15
+  areaRadius: 2.5
+  coneAngle: 60
+  chainTargets: 0

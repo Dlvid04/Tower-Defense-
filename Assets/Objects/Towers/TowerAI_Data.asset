@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fbc2e86dbceacd4cb9717f2127b6d67, type: 3}
+  m_Name: TowerAI_Data
+  m_EditorClassIdentifier: Assembly-CSharp::TowerAIData
+  startMut: 0
+  maxMut: 10
+  incomeInterval: 3
+  incomeAmount: 1
+  killReward: 2
+  maxTowers: 4
+  groupSize: 3
+  startTower: {fileID: 5612846168527526486, guid: 74a65dc0173b3ee48bff8247a1bcf11d, type: 3}
+  defaultTower: {fileID: 5612846168527526486, guid: 74a65dc0173b3ee48bff8247a1bcf11d, type: 3}
+  groupTower: {fileID: 6390244117287478487, guid: 57ede7a61bb5ae046802973da581030b, type: 3}
+  counterTable:
+  - troop: {fileID: 11400000, guid: 0289d09d36fcf4e44bd3d4ebe66c0c41, type: 2}
+    counterTower: {fileID: 5612846168527526486, guid: 74a65dc0173b3ee48bff8247a1bcf11d, type: 3}
+  - troop: {fileID: 11400000, guid: 0c98110c056c2eb4fb8581e8d0c30ce1, type: 2}
+    counterTower: {fileID: 2354000168337972483, guid: 7d999252815551341898dd1a44b87f6b, type: 3}
+  - troop: {fileID: 11400000, guid: 792088aecaee933419e266db0957963a, type: 2}
+    counterTower: {fileID: 1760029749677614660, guid: a534493836b30084998f1253ce4664f0, type: 3}
