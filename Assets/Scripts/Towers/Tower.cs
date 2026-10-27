@@ -8,6 +8,8 @@ public class Tower : MonoBehaviour
     public TowerData data;
     public Transform firePoint;
     public Projectile projectilePrefab;
+    public GameObject attackEffectPrefab;
+    public float attackEffectDuration = 0.2f;
 
     TroopAgent currentTarget; 
     Transform laneEnd;         
@@ -139,6 +141,8 @@ public class Tower : MonoBehaviour
 
     void AttackFlame()
     {
+        SpawnAttackEffect(firePoint.position, transform.rotation);
+
         List<TroopAgent> troopsInRange = DamageHelper.GetTroopsInRadius(transform.position, data.range);
 
         foreach (TroopAgent troop in troopsInRange)
@@ -169,6 +173,7 @@ public class Tower : MonoBehaviour
             }
 
             DamageHelper.DealDamage(current, data.damage);
+            SpawnAttackEffect(current.transform.position, Quaternion.identity);
             Debug.DrawLine(lastPosition, current.transform.position, Color.yellow, 0.3f);
 
             alreadyHit.Add(current);
@@ -217,5 +222,16 @@ public class Tower : MonoBehaviour
 
         Debug.Log(data.towerName + " was destroyed");
         Destroy(gameObject);
+    }
+
+    void SpawnAttackEffect(Vector3 position, Quaternion rotation)
+    {
+        if (attackEffectPrefab == null)
+        {
+            return;
+        }
+
+        GameObject effect = Instantiate(attackEffectPrefab, position, rotation);
+        Destroy(effect, attackEffectDuration);
     }
 }

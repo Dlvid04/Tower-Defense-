@@ -203,6 +203,8 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 2b80fd575310cce409a246c152369967, type: 2}
   firePoint: {fileID: 4084308003364565827}
   projectilePrefab: {fileID: 808567235742747557, guid: 7d23877e756cbbf4badc7b3133caa375, type: 3}
+  attackEffectPrefab: {fileID: 4453578850038758324, guid: 6956330d965de064f969a1fcd0c34d56, type: 3}
+  attackEffectDuration: 0.2
 --- !u!136 &8091111269804840127
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    public GameObject hitEffectPrefab;
+    public float hitEffectDuration = 0.4f;
+
     Transform target;        
     Vector3 targetPosition;  
     float speed;             
@@ -35,8 +38,13 @@ public class Projectile : MonoBehaviour
             targetPosition = target.position;
         }
 
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+        Vector3 direction = targetPosition - transform.position;
+        if (direction != Vector3.zero)
+        {
+            transform.rotation = Quaternion.LookRotation(direction);
+        }
 
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
         if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
         {
             Hit();
@@ -61,6 +69,13 @@ public class Projectile : MonoBehaviour
                 DamageHelper.DealDamage(troop, damage);
             }
         }
+
+        if (hitEffectPrefab != null)
+        {
+            GameObject effect = Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
+            Destroy(effect, hitEffectDuration);
+        }
+
         Destroy(gameObject);
     }
 }

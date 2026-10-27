@@ -667,7 +667,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1201358201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -680,7 +680,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad94abc44f9cb634a9da9508989627cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestMover
-  speed: 0
+  speed: 2
 --- !u!114 &1201358202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1378,6 +1378,10 @@ PrefabInstance:
     - target: {fileID: 8655084038765343065, guid: f5bd4770913b62044a4d46f84796239a, type: 3}
       propertyPath: m_Name
       value: TowerAI
+      objectReference: {fileID: 0}
+    - target: {fileID: 8655084038765343065, guid: f5bd4770913b62044a4d46f84796239a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
