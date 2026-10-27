@@ -16,6 +16,6 @@ public class TestTowerDestroyedListener : MonoBehaviour
 
     void HandleTowerDestroyed(Tower tower)
     {
-        Debug.Log("Event angekommen: " + tower.data.towerName + " zerstört. Spieler bekommt +" + rewardForPlayer + " Mut.");
+        Debug.Log("Event Registration: " + tower.data.towerName + " destroy. Player get +" + rewardForPlayer + " Mut.");
     }
 }

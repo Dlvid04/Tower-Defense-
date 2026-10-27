@@ -201,7 +201,7 @@ public class Tower : MonoBehaviour
         return best;
     }
 
-    [ContextMenu("Test: Turm zerstören")]
+    [ContextMenu("Test: Tower destroy")]
     public void DestroyTower()
     {
         BuildSlot slot = GetComponentInParent<BuildSlot>();
@@ -215,7 +215,7 @@ public class Tower : MonoBehaviour
             TowerDestroyed(this);
         }
 
-        Debug.Log(data.towerName + " wurde zerstört");
+        Debug.Log(data.towerName + " was destroyed");
         Destroy(gameObject);
     }
 }

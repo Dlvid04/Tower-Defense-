@@ -9,7 +9,15 @@ public static class DamageHelper
         // SPÄTER, wenn Dev 1 Health fertig hat:
         // Health health = troop.GetComponent<Health>();
         // if (health != null) health.TakeDamage(damage);
-        Debug.Log("Treffer: " + troop.name + " bekommt " + damage + " Schaden");
+        Debug.Log("Hit: " + troop.name + " gets " + damage + " DMG!");
+    }
+
+    public static void DealDamageToTower(Tower tower, float damage)
+    {
+        // LATER: when Dev 1 finished Health
+        // Health health = tower.GetComponent<Health>();
+        // if (health != null) health.TakeDamage(damage);
+        Debug.Log("Hit: " + tower.data.towerName + " gets " + damage + " DMG!");
     }
 
     public static List<TroopAgent> GetTroopsInRadius(Vector3 center, float radius)

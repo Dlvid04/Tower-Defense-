@@ -99,7 +99,7 @@ public class TowerAI : MonoBehaviour
 
         slot.Build(towerToBuild.gameObject);
         mut = mut - towerToBuild.data.cost;
-        Debug.Log("KI baut " + towerToBuild.data.towerName + " auf " + slot.name + " (Mut übrig: " + mut + ")");
+        Debug.Log("KI build " + towerToBuild.data.towerName + " on " + slot.name + " (Mut: " + mut + ")");
     }
 
     int CountTowers()
