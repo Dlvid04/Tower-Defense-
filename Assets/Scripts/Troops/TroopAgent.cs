@@ -73,7 +73,7 @@ public class TroopAgent : MonoBehaviour
     {
         if (groupID == 0)
         {
-            return Vector3.zero;   // keine Gruppe: genau auf der Lane laufen
+            return Vector3.zero;   
         }
 
         int index = 0;
@@ -147,10 +147,19 @@ public class TroopAgent : MonoBehaviour
             return;
         }
 
-        float speed = troop.Speed * speedMultiplier;
+        float speed = troop.Speed * speedMultiplier * GetWeatherSpeed();
         transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
         transform.rotation = Quaternion.LookRotation(direction);   
         SetWalking(true);
+    }
+
+    float GetWeatherSpeed()
+    {
+        if (WeatherManager.curentWeather == WetterArt.Regen)
+        {
+            return troop.rainSpeedMultiplier;  
+        }
+        return 1;
     }
     
         Tower FindTarget()
@@ -224,7 +233,6 @@ public class TroopAgent : MonoBehaviour
 
     void ExitMap()
     {
-        // Pro Gruppe nur 1 Leben abziehen
         if (IsGroupFinished() == false)
         {
             FinishGroup();

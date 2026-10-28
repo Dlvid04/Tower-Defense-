@@ -35,5 +35,9 @@ public class Troop : ScriptableObject
     [Header("Held (Sturmbrecher)")]
     [Min(0)] public float auraRadius = 4;
     [Range(0, 1)] public float auraReduction = 0.2f;      
-    [Min(0)] public float lightningRadius = 4;             
+    [Min(0)] public float lightningRadius = 4;   
+
+    
+    [Header("Wetter")]
+    [Min(0)] public float rainSpeedMultiplier = 0.7f;          
 }

@@ -12,13 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2c06a9e1c44969469f3bce94ade15c1, type: 3}
   m_Name: Sturmbrecher
   m_EditorClassIdentifier: Assembly-CSharp::Troop
-  prefab: {fileID: 6388087780462024615, guid: d58f43be755b4b84a92e49ccf7981733, type: 3}
   color: {r: 1, g: 0, b: 0, a: 1}
   isHero: 1
   maxHealth: 120
   MovementSpeed: 3
-  damage: 10
-  attackRange: 2.5
+  damage: 50
+  attackRange: 3.5
   attackCooldown: 1
   blocksProjectiles: 0
   shieldRadius: 1.2
