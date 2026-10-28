@@ -99,7 +99,7 @@ public class LightningStorm : MonoBehaviour
         Vector3 hitPosition = point;
         if (targets.Count == 0)
         {
-            Debug.Log("Blitz schl�gt in den Boden ein");
+            Debug.Log("Lightning strikes the ground!");
         }
         else
         {
