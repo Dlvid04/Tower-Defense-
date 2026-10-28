@@ -405,13 +405,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TroopTestSpawner
   startPoint: {fileID: 667162326}
   entries:
-  - troop: {fileID: 11400000, guid: b14a723120e80144da49d3baf0f7a9eb, type: 2}
+  - agent: {fileID: 1254510596560312166, guid: 61c80fed3668a4e48983088efa708d74, type: 3}
     count: 1
-  - troop: {fileID: 11400000, guid: 929ee944d31890749b86edb73dd39250, type: 2}
+  - agent: {fileID: 2077008142581007355, guid: 8b297ea036497614194b991110aee138, type: 3}
     count: 1
-  - troop: {fileID: 11400000, guid: 4fcdba2da4a72c047b78b6ed778d164c, type: 2}
+  - agent: {fileID: 1876954421843017163, guid: f341f7e618a932a40925963f2a46caf2, type: 3}
     count: 5
-  - troop: {fileID: 11400000, guid: 9ba578c5f6078c246ba9f6fa58dc2272, type: 2}
+  - agent: {fileID: 908574381549647404, guid: d58f43be755b4b84a92e49ccf7981733, type: 3}
     count: 1
 --- !u!1001 &1049930071
 PrefabInstance:

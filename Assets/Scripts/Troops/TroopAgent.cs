@@ -48,11 +48,6 @@ public class TroopAgent : MonoBehaviour
 
         health.Init(Team.Player, troop.MaxHealth);
         health.OnDied += OnDied;
-        
-        foreach (Renderer r in GetComponentsInChildren<Renderer>())
-        {
-            r.material.color = troop.color;
-        }
 
         path = FindFirstObjectByType<WaypointPath>();
         if (path == null)

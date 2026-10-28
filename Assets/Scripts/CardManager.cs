@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
-using static Unity.VectorGraphics.VectorUtils;
-using static UnityEngine.ParticleSystem;
 
 public class CardManager : MonoBehaviour
 {
+    #region statics
     public Wallet mutWallet = new();
     public static int MUT
     {
@@ -33,6 +32,7 @@ public class CardManager : MonoBehaviour
             return instance;
         }
     }
+    #endregion
 
     [Header("Visuals")]
     [SerializeField] TMP_Text MutVisual;
@@ -63,6 +63,8 @@ public class CardManager : MonoBehaviour
         UpdateMUTDislpay();
         dragging = false;
         partical = Resources.Load<GameObject>("Particals/Spawn Particles");
+
+        TimeManager.MutUpdate += UpdateMUTDislpay;
     }
 
     public void GiveStarterCards()
@@ -136,6 +138,7 @@ public class CardManager : MonoBehaviour
                 Destroy(card.gameObject);
                 cards.Remove(card);
                 RefillCards();
+
                 Instantiate(partical, AgentStartPoint.position, partical.transform.rotation);
                 return true;
             }

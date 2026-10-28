@@ -6,7 +6,7 @@ public class TroopTestSpawner : MonoBehaviour
     [System.Serializable]
     public class SpawnEntry
     {
-        public Troop troop;
+        public TroopAgent agent;
         [Min(1)] public int count = 1;   
     }
 
@@ -34,7 +34,7 @@ public class TroopTestSpawner : MonoBehaviour
 
     void Spawn(SpawnEntry entry)
     {
-        if (entry.troop == null || entry.troop.Prefab == null)
+        if (entry.agent == null)
         {
             Debug.LogError("Troop oder Prefab fehlt im TroopTestSpawner!");
             return;
@@ -42,7 +42,7 @@ public class TroopTestSpawner : MonoBehaviour
 
         for (int i = 0; i < entry.count; i++)
         {
-            GameObject g = Instantiate(entry.troop.Prefab, startPoint.position, startPoint.rotation);
+            GameObject g = Instantiate(entry.agent.gameObject, startPoint.position, startPoint.rotation);
             g.GetComponent<TroopAgent>().Init(nextGroupID);
         }
         nextGroupID = nextGroupID + 1;

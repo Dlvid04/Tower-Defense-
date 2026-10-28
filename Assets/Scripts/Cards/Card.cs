@@ -1,12 +1,14 @@
 using UnityEngine;
 
-[RequireComponent(typeof(CardVisuliser)), RequireComponent(typeof(Canvas)), RequireComponent(typeof(RectTransform))]
+[RequireComponent(typeof(CardVisuliser)), RequireComponent(typeof(RectTransform))]
 public class Card : MonoBehaviour
 {
+    static int lastId = 0;
+
     public Transform MovingTransform;
 
     RectTransform rt;
-    Canvas canvas;
+    [SerializeField] Canvas canvas;
     CardVisuliser visuliser;
     [SerializeField] CardData data;
 
@@ -18,7 +20,7 @@ public class Card : MonoBehaviour
     {
 
         visuliser = GetComponent<CardVisuliser>();
-        canvas = GetComponent<Canvas>();
+        //canvas = GetComponent<Canvas>();
         rt = GetComponent<RectTransform>();
 
         data = cd;
@@ -46,7 +48,7 @@ public class Card : MonoBehaviour
 
     public void PlaceAgents(Vector3 position)
     {
-        int groupID = Random.Range(0, 999);
+        int groupID = lastId += 1;
         for (int i = 0; i < data.troopCount; i++)
         {
             GameObject g = Instantiate(data.agent.gameObject, position, Quaternion.identity);
@@ -56,10 +58,15 @@ public class Card : MonoBehaviour
         }
         Debug.Log("Spawned " + data.troopCount + " Troops with the id: " + groupID);
     }
-    public float sdf;
+    //public float sdf;
     void Update()
     {
         Vector2 mp = GameManager.InputActions.UI.Point.ReadValue<Vector2>();
+
+
+#if UNITY_EDITOR
+        drawUiPoint(mp, Color.blue);
+#endif
 
         Vector2 min = new(rt.position.x - (rt.rect.width * rt.lossyScale.x / 2), rt.position.y - (rt.rect.height * rt.lossyScale.y / 2));
         Vector2 max = new(rt.position.x + (rt.rect.width * rt.lossyScale.x / 2), rt.position.y + (rt.rect.height * rt.lossyScale.y / 2));
@@ -72,7 +79,7 @@ public class Card : MonoBehaviour
                 CardManager.dragging = true;
                 draged = true;
                 scale = Vector3.one * 0.5f;
-                canvas.sortingOrder = 1;
+                canvas.sortingOrder = 5;
             }
 
             if (draged)
@@ -96,7 +103,7 @@ public class Card : MonoBehaviour
             target = -Vector3.one;
             draged = false;
             scale = Vector3.one;
-            canvas.sortingOrder = 0;
+            canvas.sortingOrder = 1;
         }
         if (GameManager.InputActions.UI.RightClick.IsPressed())
         {
@@ -104,7 +111,7 @@ public class Card : MonoBehaviour
             target = -Vector3.one;
             draged = false;
             scale = Vector3.one;
-            canvas.sortingOrder = 0;
+            canvas.sortingOrder = 1;
         }
 
         if (target != -Vector3.one)
@@ -118,9 +125,12 @@ public class Card : MonoBehaviour
 
         MovingTransform.localScale = Vector3.MoveTowards(MovingTransform.localScale, scale, Time.deltaTime * 10);
     }
-    //void drawpoint(Vector3 p, Color c)
-    //{
-    //    Debug.DrawRay(p, Vector3.right * 10, c);
-    //    Debug.DrawRay(p, Vector3.up * 10, c);
-    //}
+
+#if UNITY_EDITOR
+    void drawUiPoint(Vector3 p, Color c)
+    {
+        Debug.DrawRay(p, Vector3.right * 10, c);
+        Debug.DrawRay(p, Vector3.up * 10, c);
+    }
+#endif
 }

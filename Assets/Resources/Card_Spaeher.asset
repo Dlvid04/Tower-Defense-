@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd1207168bbaeec4c94586e3c5be1fea, type: 3}
-  m_Name: Card 4
+  m_Name: Card_Spaeher
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  cardName: Card 4
+  cardName: Spaeher
   cardDescription: Card Description
   placeCost: 1
-  agent: {fileID: -4727530154614613260, guid: 177f9a37c41736e48bacace7e51f0c1d, type: 3}
+  agent: {fileID: 2077008142581007355, guid: 8b297ea036497614194b991110aee138, type: 3}
   troopCount: 1

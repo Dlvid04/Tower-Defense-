@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
@@ -8,6 +9,8 @@ using UnityEngine.UI;
 /// </summary>
 public class TimeManager : MonoBehaviour
 {
+    public static event Action MutUpdate;
+
     #region statics
     public static TimeManager timeManager;
     public static float RoundTimer
@@ -15,10 +18,11 @@ public class TimeManager : MonoBehaviour
         get { return roundTimer; }
         set
         {
-            roundTimer = (value < -1 ? -1 : (value <= 0 ? 0 : value));
+            roundTimer = Mathf.Max(value, 0);
+            //roundTimer = (value < -1 ? -1 : (value <= 0 ? 0 : value));
         }
     }
-    static float mutTimer = -1;
+    static float mutTimer = 0;
     public static float MutTimer
     {
         get { return mutTimer; }
@@ -27,7 +31,8 @@ public class TimeManager : MonoBehaviour
             mutTimer = (value < -1 ? -1 : (value <= 0 ? 0 : value));
         }
     }
-    static float roundTimer = -1;
+
+    static float roundTimer = 0;
     static bool TimerActive = true;
 
     #endregion
@@ -46,9 +51,10 @@ public class TimeManager : MonoBehaviour
     public void TimeSetup()
     {
         RoundTimer = roundLength;
+        MutTimer = mutInterval;
+
         TimerActive = true;
 
-        MutTimer = mutInterval;
     }
 
 
@@ -61,14 +67,15 @@ public class TimeManager : MonoBehaviour
     {
         updateTime();
         updateMut();
-
     }
     void updateTime()
     {
-        if (TimerActive)
-        {
-            RoundTimer -= (Time.deltaTime / 60);
+        if (!TimerActive)
+            return;
 
+        RoundTimer -= (Time.deltaTime / 60);
+        if (RoundTimer > 0.015f)
+        {
             float minuts = Mathf.Floor(RoundTimer);
             TimerText.text = format(minuts) + ":" + format(Mathf.Floor((RoundTimer - minuts) * 60));
         }
@@ -84,16 +91,23 @@ public class TimeManager : MonoBehaviour
     }
     void updateMut()
     {
-        if (CardManager.MUT < 10)
+        if (TimerActive)
         {
-            MutTimer -= Time.deltaTime;
-            if (MutTimer <= 0)
+            if (CardManager.MUT < 10)
             {
-                CardManager.Instance.ChageMUT(1);
-                MutTimer += mutInterval;
+                MutTimer -= Time.deltaTime;
+                if (MutTimer <= 0)
+                {
+                    MutUpdate.Invoke();
+                    MutTimer += mutInterval;
+                }
+                mutIntervalVisualiser.gameObject.SetActive(true);
+                mutIntervalVisualiser.value = 1 - (MutTimer / mutInterval);
             }
-            mutIntervalVisualiser.gameObject.SetActive(true);
-            mutIntervalVisualiser.value = 1 - (MutTimer / mutInterval);
+            else
+            {
+                mutIntervalVisualiser.gameObject.SetActive(false);
+            }
         }
         else
         {

@@ -14,6 +14,8 @@ public class Wallet
     public Wallet(int value = 0)
     {
         mut = value;
+
+        TimeManager.MutUpdate += ChangeMutUpdate;
     }
 
     // not used in CardManager.cs to reduce instance calls
@@ -22,6 +24,10 @@ public class Wallet
         return cost <= MUT;
     }
 
+    void ChangeMutUpdate()
+    {
+        ChangeMut(1);
+    }
     public bool ChangeMut(int value)
     {
         if ((value > 0 && MUT >= max) || (value < 0 && MUT <= 0) || value == 0)
