@@ -15,12 +15,16 @@ MonoBehaviour:
   towerName: ArrowTower
   cost: 3
   maxHealth: 300
-  color: {r: 0.19480515, g: 0.8962264, b: 0.10568706, a: 1}
   attackType: 0
   damage: 15
   range: 8
   attackPerSecond: 2
   projectileSpeed: 20
-  arearadius: 0
+  areaRadius: 2.5
   coneAngle: 10
   chainTargets: 0
+  fogRangeMultiplier: 0.6
+  rainDamageMultiplier: 1
+  stormDamageMultiplier: 1
+  swarmTroop: {fileID: 11400000, guid: 4fcdba2da4a72c047b78b6ed778d164c, type: 2}
+  fogSwarmMissChance: 0.3

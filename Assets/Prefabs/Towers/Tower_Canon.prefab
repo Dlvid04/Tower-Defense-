@@ -56,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 5392191491383422130}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.2, z: 0}
+  m_LocalPosition: {x: -0.215, y: 4, z: -0.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -115,6 +115,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 90767986972771250, guid: d5313998c79787648bc8ea25ed148756, type: 3}
   attackEffectPrefab: {fileID: 0}
   attackEffectDuration: 0.2
+  rotatingPart: {fileID: 5599432868466629149}
 --- !u!136 &963505249980782775
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -134,8 +135,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 2
+  m_Height: 5
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!1001 &1139114504406780722
@@ -186,6 +187,42 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4790664648388038959, guid: b5bc4c3277ee15e4d9560b16e434a19a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4790664648388038959, guid: b5bc4c3277ee15e4d9560b16e434a19a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4790664648388038959, guid: b5bc4c3277ee15e4d9560b16e434a19a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4790664648388038959, guid: b5bc4c3277ee15e4d9560b16e434a19a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.40723982
+      objectReference: {fileID: 0}
+    - target: {fileID: 4790664648388038959, guid: b5bc4c3277ee15e4d9560b16e434a19a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.4039129
+      objectReference: {fileID: 0}
+    - target: {fileID: 4790664648388038959, guid: b5bc4c3277ee15e4d9560b16e434a19a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.5815988
+      objectReference: {fileID: 0}
+    - target: {fileID: 4790664648388038959, guid: b5bc4c3277ee15e4d9560b16e434a19a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.57684743
+      objectReference: {fileID: 0}
+    - target: {fileID: 4790664648388038959, guid: b5bc4c3277ee15e4d9560b16e434a19a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -89.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 4790664648388038959, guid: b5bc4c3277ee15e4d9560b16e434a19a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -110
+      objectReference: {fileID: 0}
     - target: {fileID: 8640497091406094853, guid: b5bc4c3277ee15e4d9560b16e434a19a, type: 3}
       propertyPath: m_Name
       value: TD_Kanonenturm
@@ -198,5 +235,10 @@ PrefabInstance:
 --- !u!4 &3586322808782698065 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4470912300596264291, guid: b5bc4c3277ee15e4d9560b16e434a19a, type: 3}
+  m_PrefabInstance: {fileID: 1139114504406780722}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5599432868466629149 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4790664648388038959, guid: b5bc4c3277ee15e4d9560b16e434a19a, type: 3}
   m_PrefabInstance: {fileID: 1139114504406780722}
   m_PrefabAsset: {fileID: 0}

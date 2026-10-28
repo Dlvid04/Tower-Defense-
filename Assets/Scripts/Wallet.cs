@@ -11,11 +11,19 @@ public class Wallet
         get { return mut; }
     }
 
-    public Wallet(int value = 0)
+    public Wallet(int value = 0, bool useTimeManager = true)
     {
         mut = value;
 
-        TimeManager.MutUpdate += ChangeMutUpdate;
+        if (useTimeManager)
+        {
+            TimeManager.MutUpdate += ChangeMutUpdate;
+        }
+    }
+
+    public int Max
+    {
+        get { return max; }
     }
 
     // not used in CardManager.cs to reduce instance calls
@@ -35,7 +43,7 @@ public class Wallet
             return false;
         }
 
-        mut += value;
+        mut = Mathf.Clamp(mut + value, 0, max);
         return true;
     }
 }

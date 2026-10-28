@@ -1,39 +1,33 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
-
 
 public class Tower : MonoBehaviour
 {
-
     public TowerData data;
     public Transform firePoint;
     public Projectile projectilePrefab;
     public GameObject attackEffectPrefab;
     public float attackEffectDuration = 0.2f;
 
-    TroopAgent currentTarget; 
-    Transform laneEnd;         
+    public Transform rotatingPart;
+
+    TroopAgent currentTarget;
+    WaypointPath path;
     float attackTimer;
+    Quaternion rotatingPartStart;
 
     public static event System.Action<Tower> TowerDestroyed;
 
     void Start()
     {
-        Renderer visualRenderer = GetComponentInChildren<Renderer>();
-        if (visualRenderer != null)
+        path = FindFirstObjectByType<WaypointPath>();
+        if (path == null)
         {
-            visualRenderer.material.color = data.color;
+            Debug.LogWarning("WaypointPath is nowhere to be found in the scene!");
         }
-
-        LaneEnd end = FindFirstObjectByType<LaneEnd>();
-        if (end != null)
+        if (rotatingPart != null)
         {
-            laneEnd = end.transform;
-        }
-        else
-        {
-            Debug.LogWarning("LaneEnd nowhere to found this in the scene!");
+            rotatingPartStart = Quaternion.Inverse(transform.rotation) * rotatingPart.rotation;
         }
     }
 
@@ -58,7 +52,7 @@ public class Tower : MonoBehaviour
 
     TroopAgent FindTarget()
     {
-        if (laneEnd == null)
+        if (path == null)
         {
             return null;
         }
@@ -66,21 +60,21 @@ public class Tower : MonoBehaviour
         TroopAgent[] allTroops = FindObjectsByType<TroopAgent>(FindObjectsSortMode.None);
 
         TroopAgent best = null;
-        float bestDistanceToEnd = Mathf.Infinity;
+        float bestProgress = -1;
 
         foreach (TroopAgent troop in allTroops)
         {
             float distanceToTower = Vector3.Distance(transform.position, troop.transform.position);
-            if (distanceToTower > data.range)
+            if (distanceToTower > GetRange())
             {
                 continue;
             }
 
-            float distanceToEnd = Vector3.Distance(troop.transform.position, laneEnd.position);
-            if (distanceToEnd < bestDistanceToEnd)
+            float progress = path.ProgressAt(troop.transform.position);
+            if (progress > bestProgress)
             {
                 best = troop;
-                bestDistanceToEnd = distanceToEnd;
+                bestProgress = progress;
             }
         }
 
@@ -89,17 +83,28 @@ public class Tower : MonoBehaviour
 
     void LookAtTarget()
     {
-        Vector3 direction = currentTarget.transform.position - transform.position;
+        if (rotatingPart == null)
+        {
+            return;
+        }
+
+        Vector3 direction = currentTarget.transform.position - rotatingPart.position;
         direction.y = 0;
 
         if (direction != Vector3.zero)
         {
-            transform.rotation = Quaternion.LookRotation(direction);
+            rotatingPart.rotation = Quaternion.LookRotation(direction) * rotatingPartStart;
         }
     }
 
     void Attack()
     {
+        if (MissesInFog(currentTarget))
+        {
+            Debug.Log(data.towerName + " misses " + currentTarget.name + " in the fog");
+            return;
+        }
+
         switch (data.attackType)
         {
             case AttackType.Single:
@@ -130,31 +135,38 @@ public class Tower : MonoBehaviour
     void ShootArrow()
     {
         Projectile projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
-        projectile.Launch(GetAimPoint(currentTarget), data.projectileSpeed, data.damage);
+        projectile.Launch(GetAimPoint(currentTarget), data.projectileSpeed, GetDamage());
     }
 
     void ShootCannonball()
     {
         Vector3 impactPoint = GetAimPoint(currentTarget).position;
         Projectile projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
-        projectile.LaunchArea(impactPoint, data.projectileSpeed, data.damage, data.areaRadius);
+        projectile.LaunchArea(impactPoint, data.projectileSpeed, GetDamage(), data.areaRadius);
     }
 
     void AttackFlame()
     {
-        SpawnAttackEffect(firePoint.position, transform.rotation);
+        Vector3 aimDirection = currentTarget.transform.position - transform.position;
+        aimDirection.y = 0;
+        if (aimDirection == Vector3.zero)
+        {
+            aimDirection = transform.forward;
+        }
 
-        List<TroopAgent> troopsInRange = DamageHelper.GetTroopsInRadius(transform.position, data.range);
+        SpawnAttackEffect(firePoint.position, Quaternion.LookRotation(aimDirection));
+
+        List<TroopAgent> troopsInRange = DamageHelper.GetTroopsInRadius(transform.position, GetRange());
 
         foreach (TroopAgent troop in troopsInRange)
         {
             Vector3 direction = troop.transform.position - transform.position;
             direction.y = 0;
-            float angle = Vector3.Angle(transform.forward, direction);
+            float angle = Vector3.Angle(aimDirection, direction);
 
             if (angle <= data.coneAngle / 2)
             {
-                DamageHelper.DealDamage(troop, data.damage);
+                DamageHelper.DealDamage(troop, GetDamage());
                 Debug.DrawLine(firePoint.position, troop.transform.position, Color.red, 0.2f);
             }
         }
@@ -173,11 +185,8 @@ public class Tower : MonoBehaviour
                 break;
             }
 
-            
-
-            DamageHelper.DealDamage(current, data.damage);
+            DamageHelper.DealDamage(current, GetDamage());
             SpawnAttackEffect(firePoint.position, Quaternion.LookRotation(current.transform.position - firePoint.position));
-            //Debug.DrawLine(lastPosition, current.transform.position, Color.yellow, 0.3f);
 
             alreadyHit.Add(current);
             lastPosition = current.transform.position;
@@ -187,7 +196,7 @@ public class Tower : MonoBehaviour
 
     TroopAgent FindNextChainTarget(Vector3 from, List<TroopAgent> alreadyHit)
     {
-        List<TroopAgent> troopsInRange = DamageHelper.GetTroopsInRadius(transform.position, data.range);
+        List<TroopAgent> troopsInRange = DamageHelper.GetTroopsInRadius(transform.position, GetRange());
 
         TroopAgent best = null;
         float bestDistance = Mathf.Infinity;
@@ -207,6 +216,54 @@ public class Tower : MonoBehaviour
             }
         }
         return best;
+    }
+
+    // ---------- Wetter ----------
+    float GetRange()
+    {
+        float range = data.range;
+        if (WeatherManager.curentWeather == WetterArt.Nebel)
+        {
+            range = range * data.fogRangeMultiplier;
+        }
+        return range;
+    }
+
+    float GetDamage()
+    {
+        float damage = data.damage;
+        if (WeatherManager.curentWeather == WetterArt.Regen)
+        {
+            damage = damage * data.rainDamageMultiplier;
+        }
+        if (WeatherManager.curentWeather == WetterArt.Gewitter)
+        {
+            damage = damage * data.stormDamageMultiplier;
+        }
+        return damage;
+    }
+
+    bool MissesInFog(TroopAgent troop)
+    {
+        if (WeatherManager.curentWeather != WetterArt.Nebel)
+        {
+            return false;
+        }
+        if (data.swarmTroop == null || troop.troop != data.swarmTroop)
+        {
+            return false;
+        }
+        return Random.value < data.fogSwarmMissChance;
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        if (data == null)
+        {
+            return;
+        }
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, GetRange());
     }
 
     [ContextMenu("Test: Tower destroy")]

@@ -3,7 +3,7 @@ using UnityEngine;
 public enum AttackType
 {
     Single, //  Pfeil: ein Ziel
-    Area,   //  Kanone: Flächenschade
+    Area,   //  Kanone: Flächenschaden
     Cone,   //  Flamme: Kegel vor dem Turm
     Chain   //  Blitz: springt auf mehrere Ziele
 }
@@ -15,7 +15,6 @@ public class TowerData : ScriptableObject
     public string towerName = "Turm";
     [Min(0)] public int cost = 3;
     [Min(1)] public float maxHealth = 300;
-    public Color color = Color.white;
 
     [Header("Attack")]
     public AttackType attackType = AttackType.Single;
@@ -28,4 +27,11 @@ public class TowerData : ScriptableObject
     [Min(0)] public float areaRadius = 2.5f;            // Kanone: Radius der Explosion
     [Range(10, 180)] public float coneAngle = 60;       // Flamme: Breite des Kegels in Grad
     [Min(0)] public int chainTargets = 3;               // Blitz: Anzahl der Ziele
+
+    [Header("Weather")]
+    [Min(0)] public float fogRangeMultiplier = 0.6f;        // Nebel:       Reichweite  (0.6 = -40 %)
+    [Min(0)] public float rainDamageMultiplier = 1;         // Regen:       Schaden     (Flamme: 0.5 = -50 %)
+    [Min(0)] public float stormDamageMultiplier = 1;        // Gewitter:    Schaden     (Blitz: 1.5 = +50 %)
+    public Troop swarmTroop;                            
+    [Range(0, 1)] public float fogSwarmMissChance = 0.3f;   // Nebel: so oft verfehlt der Turm den Schwarm
 }

@@ -7,7 +7,22 @@ public class LightningStorm : MonoBehaviour
     public GameObject strikeVisualPrefab;
     public bool isStormActive;
     LightningPoint[] allPoints;
-    float strikeTimer;        
+    float strikeTimer;
+
+    void OnEnable()
+    {
+        WeatherManager.WetherChanged += HandleWeatherChanged;
+    }
+
+    void OnDisable()
+    {
+        WeatherManager.WetherChanged -= HandleWeatherChanged;
+    }
+
+    void HandleWeatherChanged(WetterArt weather)
+    {
+        isStormActive = weather == WetterArt.Gewitter;
+    }
 
     void Start()
     {

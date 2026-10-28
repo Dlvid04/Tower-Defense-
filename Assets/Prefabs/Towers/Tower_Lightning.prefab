@@ -84,6 +84,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 0}
   attackEffectPrefab: {fileID: 332190078714748631, guid: 13b3be0cf02fd88439392be2cb1667cc, type: 3}
   attackEffectDuration: 0.2
+  rotatingPart: {fileID: 0}
 --- !u!136 &4335854340533370003
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -103,8 +104,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 1
+  m_Height: 5
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &5142571072458421536

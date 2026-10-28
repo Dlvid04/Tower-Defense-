@@ -89,6 +89,7 @@ public class TimeManager : MonoBehaviour
             GameManager.instance.GameEnd(EndType.Timeout);
         }
     }
+
     void updateMut()
     {
         if (TimerActive)
@@ -106,6 +107,7 @@ public class TimeManager : MonoBehaviour
             }
             else
             {
+                MutTimer = mutInterval;
                 mutIntervalVisualiser.gameObject.SetActive(false);
             }
         }

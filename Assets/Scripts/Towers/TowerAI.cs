@@ -6,27 +6,41 @@ public class TowerAI : MonoBehaviour
     public TowerAIData data;
     public bool buildStartTowerOnStart = true;
 
+    // Nur zum Zuschauen im Inspector. Der echte Mut liegt in der Wallet.
     [SerializeField] int mut;
 
+    Wallet wallet;
     BuildSlot[] allSlots;
-    Transform laneEnd;
-    float incomeTimer;   
+    WaypointPath path;
+    float incomeTimer;
+    float incomeInterval = 3;
+
+    void OnEnable()
+    {
+        GameEvents.UnitKilled += HandleUnitKilled;
+    }
+
+    void OnDisable()
+    {
+        GameEvents.UnitKilled -= HandleUnitKilled;
+    }
 
     void Start()
     {
         allSlots = FindObjectsByType<BuildSlot>(FindObjectsSortMode.None);
 
-        LaneEnd end = FindFirstObjectByType<LaneEnd>();
-        if (end != null)
+        path = FindFirstObjectByType<WaypointPath>();
+        if (path == null)
         {
-            laneEnd = end.transform;
-        }
-        else
-        {
-            Debug.LogWarning("LaneEnd is nowhere to be found in the scene!");
+            Debug.LogWarning("WaypointPath is nowhere to be found in the scene!");
         }
 
-        mut = data.startMut;
+        if (TimeManager.timeManager != null)
+        {
+            incomeInterval = TimeManager.timeManager.mutInterval;
+        }
+
+        wallet = new Wallet(data.startMut, false);
 
         if (buildStartTowerOnStart)
         {
@@ -36,25 +50,37 @@ public class TowerAI : MonoBehaviour
 
     void Update()
     {
-        incomeTimer = incomeTimer + Time.deltaTime;
-        if (incomeTimer >= data.incomeInterval)
-        {
-            incomeTimer = 0;
-            AddMut(data.incomeAmount);
-        }
+        UpdateIncome();
+        mut = wallet.MUT;
 
         TryBuild();
     }
 
-    public void AddMut(int amount)
+    void UpdateIncome()
     {
-        mut = Mathf.Min(mut + amount, data.maxMut);
+        if (wallet.MUT >= wallet.Max)
+        {
+            incomeTimer = 0;
+            return;
+        }
+
+        incomeTimer = incomeTimer + Time.deltaTime;
+        if (incomeTimer >= incomeInterval)
+        {
+            incomeTimer = 0;
+            wallet.ChangeMut(1);
+        }
+    }
+
+    void HandleUnitKilled(TroopAgent troop)
+    {
+        OnTroopKilled();
     }
 
     [ContextMenu("Test: Enemy killed")]
     public void OnTroopKilled()
     {
-        AddMut(data.killReward);
+        wallet.ChangeMut(data.killReward);
     }
 
     [ContextMenu("Test: Build a Start Tower")]
@@ -86,7 +112,7 @@ public class TowerAI : MonoBehaviour
 
         Tower towerToBuild = ChooseTower(frontTroop);
 
-        if (mut < towerToBuild.data.cost)
+        if (wallet.MUT < towerToBuild.data.cost)
         {
             return;
         }
@@ -98,8 +124,8 @@ public class TowerAI : MonoBehaviour
         }
 
         slot.Build(towerToBuild.gameObject);
-        mut = mut - towerToBuild.data.cost;
-        Debug.Log("KI build " + towerToBuild.data.towerName + " on " + slot.name + " (Mut: " + mut + ")");
+        wallet.ChangeMut(-towerToBuild.data.cost);
+        Debug.Log("KI build " + towerToBuild.data.towerName + " on " + slot.name + " (Mut: " + wallet.MUT + ")");
     }
 
     int CountTowers()
@@ -130,7 +156,7 @@ public class TowerAI : MonoBehaviour
 
     TroopAgent FindFrontTroop()
     {
-        if (laneEnd == null)
+        if (path == null)
         {
             return null;
         }
@@ -138,15 +164,15 @@ public class TowerAI : MonoBehaviour
         TroopAgent[] allTroops = FindObjectsByType<TroopAgent>(FindObjectsSortMode.None);
 
         TroopAgent best = null;
-        float bestDistanceToEnd = Mathf.Infinity;
+        float bestProgress = -1;
 
         foreach (TroopAgent troop in allTroops)
         {
-            float distanceToEnd = Vector3.Distance(troop.transform.position, laneEnd.position);
-            if (distanceToEnd < bestDistanceToEnd)
+            float progress = path.ProgressAt(troop.transform.position);
+            if (progress > bestProgress)
             {
                 best = troop;
-                bestDistanceToEnd = distanceToEnd;
+                bestProgress = progress;
             }
         }
 
@@ -171,13 +197,12 @@ public class TowerAI : MonoBehaviour
         return data.defaultTower;
     }
 
-
     BuildSlot ChooseSlot(TroopAgent frontTroop)
     {
-        float troopDistanceToEnd = Vector3.Distance(frontTroop.transform.position, laneEnd.position);
+        float troopProgress = path.ProgressAt(frontTroop.transform.position);
 
         BuildSlot best = null;
-        float bestDistanceToEnd = -1;
+        float bestProgress = Mathf.Infinity;
 
         foreach (BuildSlot slot in allSlots)
         {
@@ -186,17 +211,17 @@ public class TowerAI : MonoBehaviour
                 continue;
             }
 
-            float slotDistanceToEnd = Vector3.Distance(slot.transform.position, laneEnd.position);
+            float slotProgress = path.ProgressAt(slot.transform.position);
 
-            if (slotDistanceToEnd >= troopDistanceToEnd)
+            if (slotProgress <= troopProgress)
             {
                 continue;
             }
 
-            if (slotDistanceToEnd > bestDistanceToEnd)
+            if (slotProgress < bestProgress)
             {
                 best = slot;
-                bestDistanceToEnd = slotDistanceToEnd;
+                bestProgress = slotProgress;
             }
         }
         return best;

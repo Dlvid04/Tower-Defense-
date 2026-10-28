@@ -209,7 +209,7 @@ public class TroopAgent : MonoBehaviour
         }
     }
 
-        void OnDied(Health h)
+    void OnDied(Health h)
     {
         PlayAnimation("Die");
 
@@ -218,14 +218,13 @@ public class TroopAgent : MonoBehaviour
             FinishGroup();
             GameEvents.RaiseUnitKilled(this);
 
-            TowerAI ai = FindFirstObjectByType<TowerAI>();
-            if (ai != null)
+            if (IsGroupFinished() == false && OthersOfGroupAlive() == false)
             {
-                ai.OnTroopKilled();
+                FinishGroup();
+                GameEvents.RaiseUnitKilled(this);
+                Debug.Log(troop.name + " wurde besiegt");
             }
-            Debug.Log(troop.name + " wurde besiegt");
         }
-
         Destroy(gameObject);
     }
 

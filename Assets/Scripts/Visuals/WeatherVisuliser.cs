@@ -61,4 +61,9 @@ public class WeatherVisuliser : MonoBehaviour
     {
         imageB.sprite = NextIcon;
     }
+
+    void OnDestroy()
+    {
+        WeatherManager.WetherChanged -= ChangeImage;
+    }
 }

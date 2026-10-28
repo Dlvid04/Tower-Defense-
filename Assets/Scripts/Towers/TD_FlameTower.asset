@@ -15,12 +15,16 @@ MonoBehaviour:
   towerName: FlameTower
   cost: 4
   maxHealth: 400
-  color: {r: 0.8679245, g: 0.020469915, b: 0.020469915, a: 1}
   attackType: 2
   damage: 8
   range: 10
-  attacksPerSecond: 1
+  attackPerSecond: 1
   projectileSpeed: 15
   areaRadius: 2.5
   coneAngle: 60
   chainTargets: 0
+  fogRangeMultiplier: 0.6
+  rainDamageMultiplier: 0.5
+  stormDamageMultiplier: 1
+  swarmTroop: {fileID: 11400000, guid: 4fcdba2da4a72c047b78b6ed778d164c, type: 2}
+  fogSwarmMissChance: 0.3

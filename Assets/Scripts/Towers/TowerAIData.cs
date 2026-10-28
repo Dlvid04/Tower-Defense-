@@ -13,9 +13,6 @@ public class TowerAIData : ScriptableObject
 {
     [Header("Mut")]
     [Min(0)] public int startMut = 0;
-    [Min(1)] public int maxMut = 10;
-    [Min(0.1f)] public float incomeInterval = 3;
-    [Min(0)] public int incomeAmount = 1;
     [Min(0)] public int killReward = 2;
 
     [Header("Build")]

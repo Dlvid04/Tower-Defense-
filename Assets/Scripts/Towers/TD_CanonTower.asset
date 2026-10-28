@@ -15,12 +15,16 @@ MonoBehaviour:
   towerName: CanonTower
   cost: 5
   maxHealth: 500
-  color: {r: 0.045033824, g: 0.13769904, b: 0.8679245, a: 1}
   attackType: 1
   damage: 40
   range: 10
   attackPerSecond: 0.5
   projectileSpeed: 10
-  arearadius: 2.5
+  areaRadius: 2.5
   coneAngle: 10
   chainTargets: 0
+  fogRangeMultiplier: 0.6
+  rainDamageMultiplier: 1
+  stormDamageMultiplier: 1
+  swarmTroop: {fileID: 11400000, guid: 4fcdba2da4a72c047b78b6ed778d164c, type: 2}
+  fogSwarmMissChance: 0.3
