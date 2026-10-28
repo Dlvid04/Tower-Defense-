@@ -27,6 +27,15 @@ public class TroopAgent : MonoBehaviour
     Tower currentTarget;    
     float attackTimer;
     static List<int> finishedGroups = new List<int>();
+    static Vector3[] formation =
+    {
+        new Vector3(0, 0, 0),
+        new Vector3(-0.7f, 0, 0.7f),
+        new Vector3(0.7f, 0, 0.7f),
+        new Vector3(-0.7f, 0, -0.7f),
+        new Vector3(0.7f, 0, -0.7f),
+    };
+
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     static void ResetGroups()
@@ -55,9 +64,28 @@ public class TroopAgent : MonoBehaviour
             Debug.LogWarning("Kein WaypointPath (Lane) in der Szene gefunden!");
         }
 
-        laneOffset = new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
+        laneOffset = GetFormationOffset();
         waypointIndex = 0;
         initialized = true;
+    }
+
+    Vector3 GetFormationOffset()
+    {
+        if (groupID == 0)
+        {
+            return Vector3.zero;   // keine Gruppe: genau auf der Lane laufen
+        }
+
+        int index = 0;
+        TroopAgent[] allTroops = FindObjectsByType<TroopAgent>(FindObjectsSortMode.None);
+        foreach (TroopAgent other in allTroops)
+        {
+            if (other != this && other.GroupID == groupID && other.initialized)
+            {
+                index = index + 1;
+            }
+        }
+        return formation[index % formation.Length];
     }
 
     void Start()
