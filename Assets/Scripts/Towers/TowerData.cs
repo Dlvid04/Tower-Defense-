@@ -21,7 +21,7 @@ public class TowerData : ScriptableObject
     public AttackType attackType = AttackType.Single;
     [Min(0)] public float damage = 10;
     [Min(0.5f)] public float range = 8;
-    [Min(0.1f)] public float attacksPerSecond = 1;
+    [Min(0.1f)] public float attackPerSecond = 1;
     [Min(1)] public float projectileSpeed = 15;
 
     [Header("Different types of attacks")]

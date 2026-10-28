@@ -52,7 +52,7 @@ public class Tower : MonoBehaviour
         if (attackTimer <= 0)
         {
             Attack();
-            attackTimer = 1f / data.attacksPerSecond;
+            attackTimer = 1f / data.attackPerSecond;
         }
     }
 
