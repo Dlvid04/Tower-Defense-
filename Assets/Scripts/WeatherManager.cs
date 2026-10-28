@@ -1,8 +1,11 @@
+using System;
 using System.Threading;
 using UnityEngine;
 
 public class WeatherManager : MonoBehaviour
 {
+    public static event Action<WetterArt> WetherChanged;
+
     public static WetterArt curentWeather = WetterArt.None;
     public static WetterArt nextWeather = WetterArt.None;
 
@@ -26,7 +29,7 @@ public class WeatherManager : MonoBehaviour
 
             for (int i = 0; i < 5; i++)
             {
-                switch (Random.Range(0, 2 +1))
+                switch (UnityEngine.Random.Range(0, 2 +1))
                 {
                     case 0:
                         nextWeather = WetterArt.Regen;
@@ -54,6 +57,8 @@ public class WeatherManager : MonoBehaviour
             {
                 nextWeather = WetterArt.None;
             }
+
+            WetherChanged.Invoke(curentWeather);
         }
     }
 }
