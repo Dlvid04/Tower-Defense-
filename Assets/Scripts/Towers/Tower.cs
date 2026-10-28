@@ -33,7 +33,7 @@ public class Tower : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Kein LaneEnd in der Szene gefunden!");
+            Debug.LogWarning("LaneEnd nowhere to found this in the scene!");
         }
     }
 
