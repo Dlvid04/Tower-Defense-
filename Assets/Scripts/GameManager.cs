@@ -19,15 +19,6 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] CardManager cardManager;
 
-
-    int lives = 3;
-    public int Lives
-    {
-        get { return lives; }
-        set { lives = value; }
-    }
-
-
     [SerializeField] Health aiHealth;
     [SerializeField] Animator endAnimation;
 

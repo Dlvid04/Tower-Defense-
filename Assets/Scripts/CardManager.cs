@@ -136,6 +136,7 @@ public class CardManager : MonoBehaviour
 
                 card.PlaceAgents(AgentStartPoint.position);
                 Destroy(card.gameObject);
+                cardsInDeck.Add(card.Data);
                 cards.Remove(card);
                 RefillCards();
 

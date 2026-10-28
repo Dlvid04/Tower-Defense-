@@ -11,6 +11,7 @@ public class Card : MonoBehaviour
     [SerializeField] Canvas canvas;
     CardVisuliser visuliser;
     [SerializeField] CardData data;
+    public CardData Data { get { return data; } }
 
     Vector3 target = -Vector3.one;
     Vector3 scale = Vector3.one;
