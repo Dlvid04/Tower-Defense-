@@ -3550,13 +3550,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1535067304}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0b882c04565489945a67ed160b961142, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerAI
   data: {fileID: 11400000, guid: 8cf8c6b964cfe7141924f4bae0f3ea15, type: 2}
-  buildStartTowerOnStart: 0
+  buildStartTowerOnStart: 1
   mut: 0
 --- !u!114 &1535067307
 MonoBehaviour:

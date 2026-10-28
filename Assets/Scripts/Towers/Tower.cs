@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 
 public class Tower : MonoBehaviour
@@ -172,9 +173,11 @@ public class Tower : MonoBehaviour
                 break;
             }
 
+            
+
             DamageHelper.DealDamage(current, data.damage);
-            SpawnAttackEffect(current.transform.position, Quaternion.identity);
-            Debug.DrawLine(lastPosition, current.transform.position, Color.yellow, 0.3f);
+            SpawnAttackEffect(firePoint.position, Quaternion.LookRotation(current.transform.position - firePoint.position));
+            //Debug.DrawLine(lastPosition, current.transform.position, Color.yellow, 0.3f);
 
             alreadyHit.Add(current);
             lastPosition = current.transform.position;
