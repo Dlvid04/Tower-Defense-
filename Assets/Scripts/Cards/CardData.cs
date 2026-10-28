@@ -10,6 +10,6 @@ public class CardData : ScriptableObject
     [Header("Data")]
     [Range(0, 5)] public int placeCost = 1;
     [Header("Troop")]
-    public Troop prefab;
+    public TroopAgent agent;
     [Min(1)] public int troopCount = 1;
 }

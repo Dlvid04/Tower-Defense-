@@ -4,12 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New BasicTroop", menuName = "Troops/BasicTroop")]
 public class Troop : ScriptableObject
 {
-    [Header("Allgemein")]
-    [SerializeField] GameObject prefab;
-    public GameObject Prefab
-    {
-        get { return prefab; }
-    }
+    //[SerializeField] GameObject prefab;
 
     public Color color = Color.white;   
     public bool isHero = false;         

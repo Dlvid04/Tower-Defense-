@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        Application.targetFrameRate = 60;
+
         Cursor.lockState = CursorLockMode.Confined;
 
         InputActions.Enable();
@@ -52,4 +54,22 @@ public class GameManager : MonoBehaviour
 
         TimeManager.StartRoundTimer();
     }
+
+    public void GameEnd(EndType endType)
+    {
+        switch (endType)
+        {
+            case EndType.Timeout:
+                Debug.Log("Timeout");
+                break;
+            case EndType.Lose:
+                Debug.Log("Lose");
+                break;
+            case EndType.Win:
+                Debug.Log("Win");
+                break;
+        }
+    }
 }
+
+public enum EndType { Timeout, Lose, Win }
