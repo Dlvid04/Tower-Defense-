@@ -15,7 +15,10 @@ public class WeatherManager : MonoBehaviour
 
     void Start()
     {
-        timer = 0;
+        timer = interval;
+        nextWeather = TryGetNext();
+
+        FindFirstObjectByType<WeatherVisuliser>().Init(nextWeather);
     }
 
     // Update is called once per frame
@@ -27,39 +30,43 @@ public class WeatherManager : MonoBehaviour
             timer = interval;
             curentWeather = nextWeather;
 
-            for (int i = 0; i < 5; i++)
-            {
-                switch (UnityEngine.Random.Range(0, 2 +1))
-                {
-                    case 0:
-                        nextWeather = WetterArt.Regen;
-                        break;
-                    case 1:
-                        nextWeather = WetterArt.Nebel;
-                        break;
-                    case 2:
-                        nextWeather = WetterArt.Gewitter;
-                        break;
-                    //case 0:
-                    //    nextWeather = WetterArt.Frost;
-                    //    break;
-                    //case 0:
-                    //    nextWeather = WetterArt.Sturm;
-                    //    break;
-                    default:
-                        nextWeather = WetterArt.None;
-                        break;
-                }
-                if (curentWeather != nextWeather)
-                    break;
-            }
-            if (curentWeather == nextWeather)
-            {
-                nextWeather = WetterArt.None;
-            }
+            nextWeather = TryGetNext();
 
             WetherChanged.Invoke(curentWeather);
         }
+    }
+    WetterArt TryGetNext()
+    {
+        WetterArt w = WetterArt.None;
+
+        for (int i = 0; i < 5; i++)
+        {
+            switch (UnityEngine.Random.Range(0, 3))
+            {
+                case 0:
+                    w = WetterArt.Regen;
+                    break;
+                case 1:
+                    w = WetterArt.Nebel;
+                    break;
+                case 2:
+                    w = WetterArt.Gewitter;
+                    break;
+                //case 0:
+                //    w = WetterArt.Frost;
+                //    break;
+                //case 0:
+                //    w = WetterArt.Sturm;
+                //    break;
+            }
+
+            if (w != nextWeather)
+                return w;
+        }
+
+        return nextWeather == WetterArt.None
+            ? WetterArt.Regen
+            : WetterArt.None;
     }
 }
 
