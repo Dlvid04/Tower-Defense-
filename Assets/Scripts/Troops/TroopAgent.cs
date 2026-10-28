@@ -1,10 +1,7 @@
-using UnityEditor;
-
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.UIElements;
+//using UnityEngine.AI;
 
-[RequireComponent(typeof(NavMeshAgent))]
+//[RequireComponent(typeof(NavMeshAgent))]
 public class TroopAgent : MonoBehaviour
 {
     /// <summary>
@@ -17,11 +14,10 @@ public class TroopAgent : MonoBehaviour
     }
 
     public Troop troop;
-    NavMeshAgent agent;
+    //NavMeshAgent agent;
     public virtual void Init(int groupID)
     {
-        agent = GetComponent<NavMeshAgent>();
-
+        //agent = GetComponent<NavMeshAgent>();
 
         this.groupID = groupID;
     }

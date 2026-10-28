@@ -3,6 +3,9 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Manages timers and the UI of them.
+/// </summary>
 public class TimeManager : MonoBehaviour
 {
     #region statics
@@ -25,6 +28,8 @@ public class TimeManager : MonoBehaviour
         }
     }
     static float roundTimer = -1;
+    static bool TimerActive = true;
+
     #endregion
 
     [Header("Settings")]
@@ -41,6 +46,8 @@ public class TimeManager : MonoBehaviour
     public void TimeSetup()
     {
         RoundTimer = roundLength;
+        TimerActive = true;
+
         MutTimer = mutInterval;
     }
 
@@ -52,7 +59,13 @@ public class TimeManager : MonoBehaviour
 
     void Update()
     {
-        if (RoundTimer > 0)
+        updateTime();
+        updateMut();
+
+    }
+    void updateTime()
+    {
+        if (TimerActive)
         {
             RoundTimer -= (Time.deltaTime / 60);
 
@@ -61,9 +74,16 @@ public class TimeManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Round End");
-        }
+            TimerActive = false;
+            TimerText.text = "00:00";
 
+            Debug.Log("Round End");
+
+            GameManager.instance.GameEnd(EndType.Timeout);
+        }
+    }
+    void updateMut()
+    {
         if (CardManager.MUT < 10)
         {
             MutTimer -= Time.deltaTime;

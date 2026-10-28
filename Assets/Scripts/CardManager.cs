@@ -1,10 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
+using static Unity.VectorGraphics.VectorUtils;
+using static UnityEngine.ParticleSystem;
 
 public class CardManager : MonoBehaviour
 {
+    public Wallet mutWallet = new();
+    public static int MUT
+    {
+        get
+        {
+            if(instance == null)
+                return 0;
+            return instance.mutWallet.MUT;
+        }
+    }
+
+    public static bool dragging = false;
+
     static CardManager instance;
     public static CardManager Instance
     {
@@ -18,13 +34,6 @@ public class CardManager : MonoBehaviour
         }
     }
 
-    static int mut;
-    public static int MUT
-    {
-        get { return mut; }
-        set { mut = Mathf.Clamp(value, 0, 10); }
-    }
-
     [Header("Visuals")]
     [SerializeField] TMP_Text MutVisual;
 
@@ -33,6 +42,7 @@ public class CardManager : MonoBehaviour
     [SerializeField] GameObject cardPrefeb;
     [SerializeField] Transform AgentStartPoint;
     [SerializeField] Transform CartParent;
+    public Transform CartDeckRef;
 
 
     [Header("Settings")]
@@ -44,19 +54,32 @@ public class CardManager : MonoBehaviour
     public List<Card> cards = new();
     public List<CardData> cardsInDeck = new();
 
+    GameObject partical;
+
     void Start()
     {
         instance = this;
-        MUT = 0;
+        mutWallet = new();
         UpdateMUTDislpay();
+        dragging = false;
+        partical = Resources.Load<GameObject>("Particals/Spawn Particles");
     }
 
     public void GiveStarterCards()
     {
-        CardData[] d = Resources.LoadAll<CardData>("");
+        List<CardData> d = Resources.LoadAll<CardData>("").ToList();
+
+        if (d.Count < StartCardCount)
+        {
+            Debug.LogError("To Little cards availebel to fill deck");
+            return;
+        }
+
         for (int i = 0; i < StartCardCount; i++)
         {
-            GiveCard(d[Random.Range(0, d.Length)]);
+            int r = Random.Range(0, d.Count);
+            GiveCard(d[r]);
+            d.RemoveAt(r);
         }
     }
 
@@ -71,6 +94,10 @@ public class CardManager : MonoBehaviour
             }
 
             GameObject g = Instantiate(cardPrefeb, CartParent);
+
+            if (g == null)
+                return;
+
             g.name = card.name;
             Card c = g.GetComponent<Card>();
 
@@ -109,6 +136,7 @@ public class CardManager : MonoBehaviour
                 Destroy(card.gameObject);
                 cards.Remove(card);
                 RefillCards();
+                Instantiate(partical, AgentStartPoint.position, partical.transform.rotation);
                 return true;
             }
         }
@@ -117,12 +145,12 @@ public class CardManager : MonoBehaviour
 
     public void ChageMUT(int value)
     {
-        MUT += value;
-        UpdateMUTDislpay();
+        if (mutWallet.ChangeMut(value))
+            UpdateMUTDislpay();
     }
 
     public void UpdateMUTDislpay()
     {
-        MutVisual.text = "Mut: " + MUT;
+        MutVisual.text = "Mut: " + mutWallet.MUT;
     }
 }
