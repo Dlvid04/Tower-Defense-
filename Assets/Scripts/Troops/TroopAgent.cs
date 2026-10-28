@@ -217,13 +217,7 @@ public class TroopAgent : MonoBehaviour
         {
             FinishGroup();
             GameEvents.RaiseUnitKilled(this);
-
-            if (IsGroupFinished() == false && OthersOfGroupAlive() == false)
-            {
-                FinishGroup();
-                GameEvents.RaiseUnitKilled(this);
-                Debug.Log(troop.name + " wurde besiegt");
-            }
+            Debug.Log(troop.name + " was defeated");
         }
         Destroy(gameObject);
     }
@@ -235,7 +229,7 @@ public class TroopAgent : MonoBehaviour
         {
             FinishGroup();
             GameEvents.RaiseUnitExitedMap(this);
-            Debug.Log(troop.name + " hat die Map verlassen: KI verliert 1 Leben");
+            Debug.Log(troop.name + " has left the map: AI loses 1 life");
         }
 
         initialized = false;  
