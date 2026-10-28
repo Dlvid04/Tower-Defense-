@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TowerAIData
   startMut: 0
   maxMut: 10
-  incomeInterval: 0.1
-  incomeAmount: 0
+  incomeInterval: 3
+  incomeAmount: 1
   killReward: 2
   maxTowers: 4
   groupSize: 3
