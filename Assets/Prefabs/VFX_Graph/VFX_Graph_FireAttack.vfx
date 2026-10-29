@@ -1994,7 +1994,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Gradient, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"colorKeys":[{"color":{"r":1.6055586338043213,"g":0.5915589332580566,"b":0.10087279975414276,"a":1.0},"time":0.16353093087673188},{"color":{"r":1.148698091506958,"g":0.26947465538978579,"b":0.06718794256448746,"a":1.0},"time":0.8388189673423767}],"alphaKeys":[{"alpha":0.0,"time":0.0},{"alpha":1.0,"time":0.10000763088464737},{"alpha":0.800000011920929,"time":0.7682307362556458},{"alpha":0.0,"time":1.0}],"gradientMode":0}'
+      m_SerializableObject: '{"colorKeys":[{"color":{"r":20.86590576171875,"g":7.687924385070801,"b":1.310947060585022,"a":1.0},"time":0.16353093087673188},{"color":{"r":1.148698091506958,"g":0.26947465538978579,"b":0.06718794256448746,"a":1.0},"time":0.8388189673423767}],"alphaKeys":[{"alpha":0.0,"time":0.0},{"alpha":1.0,"time":0.10000763088464737},{"alpha":0.800000011920929,"time":0.7682307362556458},{"alpha":0.0,"time":1.0}],"gradientMode":0}'
     m_Space: -1
   m_Property:
     name: gradient
@@ -2500,7 +2500,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 15
+      m_SerializableObject: 25
     m_Space: -1
   m_Property:
     name: Count
@@ -3469,7 +3469,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.TArcCone, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"cone":{"transform":{"position":{"x":0.0,"y":0.0,"z":0.0},"angles":{"x":0.0,"y":-90.0,"z":-90.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},"baseRadius":0.10000000149011612,"topRadius":0.30000001192092898,"height":1.0},"arc":6.2831854820251469}'
+      m_SerializableObject: '{"cone":{"transform":{"position":{"x":0.0,"y":0.0,"z":0.0},"angles":{"x":0.0,"y":-90.0,"z":-90.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},"baseRadius":0.10000000149011612,"topRadius":0.6000000238418579,"height":1.0},"arc":6.2831854820251469}'
     m_Space: 0
   m_Property:
     name: arcCone
@@ -4837,7 +4837,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"x":1.8443024158477784,"y":0.4326574206352234,"z":0.10787419974803925}'
+      m_SerializableObject: '{"x":6.422235012054443,"y":1.5066008567810059,"z":0.37563982605934145}'
     m_Space: -1
   m_Property:
     name: _Color
