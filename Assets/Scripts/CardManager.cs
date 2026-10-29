@@ -46,6 +46,7 @@ public class CardManager : MonoBehaviour
     [SerializeField] Transform AgentStartPoint;
     [SerializeField] Transform CartParent;
     public Transform CartDeckRef;
+    [SerializeField] Animator freeCardInfoBox;
 
 
     [Header("Settings")]
@@ -58,10 +59,14 @@ public class CardManager : MonoBehaviour
     public List<Card> cards = new();
     public List<CardData> cardsInDeck = new();
 
+
     GameObject partical;
+    bool freeCardUsed = false;
 
     void Start()
     {
+        freeCardUsed = false;
+
         timerMax = placeCooldown;
 
         instance = this;
@@ -149,9 +154,17 @@ public class CardManager : MonoBehaviour
 
         if (card != null)
         {
-            if (card.CanPlace())
+            if (card.CanPlace() || !freeCardUsed)
             {
-                ChageMUT(-card.GetCost());
+                if (!freeCardUsed)
+                {
+                    freeCardInfoBox.Play("FreeCard_Hide");
+                    freeCardUsed = true;
+                }
+                else
+                {
+                    ChageMUT(-card.GetCost());
+                }
 
                 card.PlaceAgents(AgentStartPoint.position);
                 Destroy(card.gameObject);
