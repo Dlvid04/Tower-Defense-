@@ -210,7 +210,7 @@ public class TowerAI : MonoBehaviour
 
         foreach (BuildSlot slot in allSlots)
         {
-            if (slot.IsFree() == false)
+            if (slot.CanBuild() == false)
             {
                 continue;
             }
