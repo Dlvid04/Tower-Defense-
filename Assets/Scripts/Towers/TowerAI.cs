@@ -50,6 +50,10 @@ public class TowerAI : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.GameIsRunning == false)
+        {
+            return;
+        }
         UpdateIncome();
         mut = wallet.MUT;
 
