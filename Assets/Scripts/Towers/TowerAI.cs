@@ -201,6 +201,8 @@ public class TowerAI : MonoBehaviour
         return data.defaultTower;
     }
 
+    // Plan A: der freie Bauplatz direkt vor der vordersten Truppe.
+    // Gibt es davor keinen mehr, kommt Plan B.
     BuildSlot ChooseSlot(TroopAgent frontTroop)
     {
         float troopProgress = path.ProgressAt(frontTroop.transform.position);
@@ -227,6 +229,38 @@ public class TowerAI : MonoBehaviour
                 best = slot;
                 bestProgress = slotProgress;
             }
+        }
+
+        if (best == null)
+        {
+            best = ChooseNearestSlot(frontTroop);
+        }
+        return best;
+    }
+
+    BuildSlot ChooseNearestSlot(TroopAgent frontTroop)
+    {
+        BuildSlot best = null;
+        float bestDistance = Mathf.Infinity;
+
+        foreach (BuildSlot slot in allSlots)
+        {
+            if (slot.CanBuild() == false)
+            {
+                continue;
+            }
+
+            float distance = Vector3.Distance(slot.transform.position, frontTroop.transform.position);
+            if (distance < bestDistance)
+            {
+                best = slot;
+                bestDistance = distance;
+            }
+        }
+
+        if (best != null)
+        {
+            Debug.Log("KI: No slot in front of " + frontTroop.name + ", uses nearest slot " + best.name);
         }
         return best;
     }
