@@ -33,6 +33,11 @@ public class Tower : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.GameIsRunning == false)
+        {
+            return;
+        }
+
         currentTarget = FindTarget();
 
         if (currentTarget == null)
@@ -176,7 +181,7 @@ public class Tower : MonoBehaviour
     {
         List<TroopAgent> alreadyHit = new List<TroopAgent>();
         TroopAgent current = currentTarget;
-        Vector3 lastPosition = firePoint.position;
+        Transform start = firePoint;
 
         for (int i = 0; i < data.chainTargets; i++)
         {
@@ -185,13 +190,33 @@ public class Tower : MonoBehaviour
                 break;
             }
 
+            Transform hitPoint = GetAimPoint(current);
+
             DamageHelper.DealDamage(current, GetDamage());
-            SpawnAttackEffect(firePoint.position, Quaternion.LookRotation(current.transform.position - firePoint.position));
+            SpawnChainEffect(start, hitPoint);
 
             alreadyHit.Add(current);
-            lastPosition = current.transform.position;
-            current = FindNextChainTarget(lastPosition, alreadyHit);
+            start = hitPoint;
+            current = FindNextChainTarget(current.transform.position, alreadyHit);
         }
+    }
+
+    void SpawnChainEffect(Transform from, Transform to)
+    {
+        if (attackEffectPrefab == null)
+        {
+            return;
+        }
+
+        GameObject effect = Instantiate(attackEffectPrefab, from.position, Quaternion.identity);
+
+        Laser laser = effect.GetComponentInChildren<Laser>();
+        if (laser != null)
+        {
+            laser.SetChain(from, to);
+        }
+
+        Destroy(effect, attackEffectDuration);
     }
 
     TroopAgent FindNextChainTarget(Vector3 from, List<TroopAgent> alreadyHit)

@@ -8,12 +8,23 @@ public class Laser : MonoBehaviour
     public float distance;
     [SerializeField] float noise = 0.1f;
 
+    bool followChain;
+    Transform chainStart;
+    Transform chainEnd;
+
     void Start()
     {
         line = GetComponent<LineRenderer>();
     }
+
     void Update()
     {
+        if (followChain)
+        {
+            DrawChain();
+            return;
+        }
+
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit))
         {
@@ -27,11 +38,35 @@ public class Laser : MonoBehaviour
         }
     }
 
+    public void SetChain(Transform start, Transform end)
+    {
+        line = GetComponent<LineRenderer>();
+        chainStart = start;
+        chainEnd = end;
+        followChain = true;
+
+        DrawChain();
+    }
+
+    void DrawChain()
+    {
+        if (chainStart != null && chainEnd != null)
+        {
+            Vector3 direction = chainEnd.position - chainStart.position;
+            if (direction != Vector3.zero)
+            {
+                transform.position = chainStart.position;
+                transform.rotation = Quaternion.LookRotation(direction);
+                distance = direction.magnitude;
+            }
+        }
+
+        line.SetPositions(AddNoiseLine(CreateLine()));
+    }
+
     public Vector3[] CreateLine()
     {
         float dist = Vector3.Distance(Vector3.zero, Vector3.forward * distance);
-
-        // 5 points per meter
         int sections = Mathf.Max(1, Mathf.CeilToInt(dist * 5f));
 
         Vector3[] points = new Vector3[sections + 1];
@@ -42,7 +77,7 @@ public class Laser : MonoBehaviour
             points[i] = Vector3.Lerp(Vector3.zero, Vector3.forward * distance, t);
         }
 
-        line.positionCount = sections;
+        line.positionCount = points.Length;
 
         return points;
     }
