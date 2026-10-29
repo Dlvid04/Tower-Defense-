@@ -1575,8 +1575,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed7be8dcd5b53e3419a96d17fbebf862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TimeManager
-  roundLength: 3
-  mutInterval: 4
+  roundLength: 4
+  mutInterval: 3
   TimerText: {fileID: 1532032696}
   mutIntervalVisualiser: {fileID: 1334224062}
 --- !u!1 &635484515
@@ -1982,7 +1982,7 @@ MonoBehaviour:
   freeCardInfoBox: {fileID: 461411748}
   StartCardCount: 4
   MaxCardsInHand: 2
-  placeCooldown: 0.2
+  placeCooldown: 1
   cards: []
   cardsInDeck: []
 --- !u!4 &757199474
