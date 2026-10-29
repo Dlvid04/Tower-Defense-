@@ -71,6 +71,6 @@ public class WeatherVisuliser : MonoBehaviour
 
     void OnDestroy()
     {
-        WeatherManager.WetherChanged -= ChangeImage;
+        WeatherManager.NextWetherChanged -= ChangeImage;
     }
 }

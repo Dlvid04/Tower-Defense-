@@ -35,6 +35,11 @@ public class LightningStorm : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.GameIsRunning == false)
+        {
+            return;
+        }
+
         if (isStormActive == false)
         {
             strikeTimer = 0;
