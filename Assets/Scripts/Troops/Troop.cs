@@ -5,7 +5,6 @@ using UnityEngine;
 public class Troop : ScriptableObject
 {
 
-    public Color color = Color.white;   
     public bool isHero = false;         
 
     [Header("Leben und Bewegung")]
