@@ -20,21 +20,18 @@ public class TroopAgent : MonoBehaviour
     protected int waypointIndex = 0;
     protected bool canMove = true;
 
-    Vector3 laneOffset;    
     Animator anim;
     bool isWalking = false;
     bool initialized = false;
     Tower currentTarget;    
     float attackTimer;
     static List<int> finishedGroups = new List<int>();
-    static Vector3[] formation =
-    {
-        new Vector3(0, 0, 0),
-        new Vector3(-0.7f, 0, 0.7f),
-        new Vector3(0.7f, 0, 0.7f),
-        new Vector3(-0.7f, 0, -0.7f),
-        new Vector3(0.7f, 0, -0.7f),
-    };
+    
+    int spawnOrder = 0;                         
+    Vector3 walkDirection = Vector3.forward;   
+    Vector3 anchorPosition;                    
+    static float formationSpacing = 0.9f;       
+    static float catchUpFactor = 1.5f;        
 
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
@@ -64,28 +61,115 @@ public class TroopAgent : MonoBehaviour
             Debug.LogWarning("Kein WaypointPath (Lane) in der Szene gefunden!");
         }
 
-        laneOffset = GetFormationOffset();
+        spawnOrder = GetSpawnOrder();
+       anchorPosition = transform.position;
         waypointIndex = 0;
         initialized = true;
     }
 
-    Vector3 GetFormationOffset()
+    int GetSpawnOrder()
     {
-        if (groupID == 0)
-        {
-            return Vector3.zero;   
-        }
-
-        int index = 0;
+        int order = 0;
         TroopAgent[] allTroops = FindObjectsByType<TroopAgent>(FindObjectsSortMode.None);
         foreach (TroopAgent other in allTroops)
         {
             if (other != this && other.GroupID == groupID && other.initialized)
             {
-                index = index + 1;
+                order = order + 1;
             }
         }
-        return formation[index % formation.Length];
+        return order;
+    }
+
+     TroopAgent GetGroupLeader()
+    {
+        if (groupID == 0)
+        {
+            return null; 
+        }
+
+        TroopAgent leader = null;
+        TroopAgent[] allTroops = FindObjectsByType<TroopAgent>(FindObjectsSortMode.None);
+        foreach (TroopAgent other in allTroops)
+        {
+            if (other.GroupID != groupID || other.initialized == false)
+            {
+                continue;
+            }
+            if (other.health == null || other.health.IsDead)
+            {
+                continue;
+            }
+
+            if (leader == null || other.spawnOrder < leader.spawnOrder)
+            {
+                leader = other;
+            }
+        }
+        return leader;
+    }
+
+    Vector3 GetFormationOffset()
+    {
+        int count = 0;
+        int rank = 0;
+        TroopAgent[] allTroops = FindObjectsByType<TroopAgent>(FindObjectsSortMode.None);
+        foreach (TroopAgent other in allTroops)
+        {
+            if (other.GroupID != groupID || other.initialized == false)
+            {
+                continue;
+            }
+            if (other.health == null || other.health.IsDead)
+            {
+                continue;
+            }
+
+            count = count + 1;
+            if (other.spawnOrder < spawnOrder)
+            {
+                rank = rank + 1;   
+            }
+        }
+        return GetSlot(rank, count);
+    }
+
+    Vector3 GetSlot(int rank, int count)
+    {
+        float side = formationSpacing / 2; 
+        float row = formationSpacing / 2;    
+
+        if (count == 2)   
+        {
+            if (rank == 0) return new Vector3(-side, 0, 0);
+            return new Vector3(side, 0, 0);
+        }
+
+        if (count == 3) 
+        {
+            if (rank == 0) return new Vector3(0, 0, row);
+            if (rank == 1) return new Vector3(-side, 0, -row);
+            return new Vector3(side, 0, -row);
+        }
+
+        if (count == 4) 
+        {
+            if (rank == 0) return new Vector3(-side, 0, row);
+            if (rank == 1) return new Vector3(side, 0, row);
+            if (rank == 2) return new Vector3(-side, 0, -row);
+            return new Vector3(side, 0, -row);
+        }
+
+        if (count >= 5)   
+        {
+            if (rank == 0) return new Vector3(0, 0, formationSpacing);
+            if (rank == 1) return new Vector3(-side, 0, 0);
+            if (rank == 2) return new Vector3(side, 0, 0);
+            if (rank == 3) return new Vector3(-side, 0, -formationSpacing);
+            if (rank == 4) return new Vector3(side, 0, -formationSpacing);
+        }
+
+        return Vector3.zero;  
     }
 
     void Start()
@@ -129,7 +213,7 @@ public class TroopAgent : MonoBehaviour
         Move();
     }
 
-    void Move()
+        void Move()
     {
         if (canMove == false || path == null || waypointIndex >= path.points.Length)
         {
@@ -137,19 +221,80 @@ public class TroopAgent : MonoBehaviour
             return;
         }
 
-        Vector3 target = path.points[waypointIndex].position + laneOffset;
+        TroopAgent leader = GetGroupLeader();
+        if (leader == null)
+        {
+            MoveAlongLane();  
+            return;
+        }
+
+        if (leader == this)
+        {
+            MoveAnchor();     
+        }
+        else
+        {
+            anchorPosition = leader.anchorPosition;
+            walkDirection = leader.walkDirection;
+            waypointIndex = leader.waypointIndex;
+        }
+
+        MoveToSlot();
+    }
+
+    void MoveAlongLane()
+    {
+        Vector3 target = path.points[waypointIndex].position;
         target.y = transform.position.y;
 
         Vector3 direction = target - transform.position;
         if (direction.magnitude < 0.1f)
         {
-            waypointIndex = waypointIndex + 1;   
+            waypointIndex = waypointIndex + 1;
             return;
         }
 
+        walkDirection = direction.normalized;
         float speed = troop.Speed * speedMultiplier * GetWeatherSpeed();
         transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
-        transform.rotation = Quaternion.LookRotation(direction);   
+        transform.rotation = Quaternion.LookRotation(direction);
+        SetWalking(true);
+    }
+
+    void MoveAnchor()
+    {
+        Vector3 target = path.points[waypointIndex].position;
+        target.y = anchorPosition.y;
+
+        Vector3 direction = target - anchorPosition;
+        if (direction.magnitude < 0.1f)
+        {
+            waypointIndex = waypointIndex + 1;
+            return;
+        }
+
+        walkDirection = direction.normalized;
+        float speed = troop.Speed * speedMultiplier * GetWeatherSpeed();
+        anchorPosition = Vector3.MoveTowards(anchorPosition, target, speed * Time.deltaTime);
+    }
+
+    void MoveToSlot()
+    {
+        Quaternion turn = Quaternion.LookRotation(walkDirection);
+        Vector3 target = anchorPosition + turn * GetFormationOffset();
+        target.y = transform.position.y;
+
+        Vector3 direction = target - transform.position;
+        if (direction.magnitude < 0.05f)
+        {
+            transform.rotation = turn;
+            SetWalking(false);
+            return;
+        }
+
+        float speed = troop.Speed * speedMultiplier * GetWeatherSpeed() * catchUpFactor;
+        transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+        transform.rotation = turn;
         SetWalking(true);
     }
 
@@ -162,7 +307,7 @@ public class TroopAgent : MonoBehaviour
         return 1;
     }
     
-        Tower FindTarget()
+    Tower FindTarget()
     {
         Tower[] allTowers = FindObjectsByType<Tower>(FindObjectsSortMode.None);
 
