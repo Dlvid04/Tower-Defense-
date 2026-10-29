@@ -101,7 +101,10 @@ public class Card : MonoBehaviour
                     {
                         Debug.DrawLine(Camera.main.transform.position, hit.point, Color.green, 5);
                         if (CardManager.Instance.PlaceCard(this))
+                        {
+                            GameManager.UpdateTroopCount();
                             return;
+                        }
                     }
                 }
 

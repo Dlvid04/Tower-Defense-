@@ -71,7 +71,11 @@ public class TimeManager : MonoBehaviour
         updateTime();
         updateMut();
 
-        if(CardManager.timer > 0)
+        if (GameManager.GropsOnMap >= 4)
+        {
+            CardManager.timer = CardManager.timerMax;
+        }
+        else if(CardManager.timer > 0)
         {
             CardManager.timer -= Time.deltaTime;
         }

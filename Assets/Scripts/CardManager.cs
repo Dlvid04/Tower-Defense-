@@ -10,7 +10,7 @@ public class CardManager : MonoBehaviour
     public static float timer = 0;
     public static float timerMax = 0;
 
-    public Wallet mutWallet = new();
+    public Wallet mutWallet;
     public static int MUT
     {
         get
@@ -149,7 +149,7 @@ public class CardManager : MonoBehaviour
 
     public bool PlaceCard(Card card)
     {
-        if (!GameManager.GameIsRunning || timer > 0)
+        if (!GameManager.GameIsRunning || timer > 0 || GameManager.GropsOnMap >= 4)
             return false;
 
         if (card != null)
@@ -193,5 +193,10 @@ public class CardManager : MonoBehaviour
     public void UpdateMUTDislpay()
     {
         MutVisual.text = mutWallet.MUT + "/" + mutWallet.Max;
+    }
+
+    void OnDestroy()
+    {
+        TimeManager.MutUpdate -= UpdateMUTDislpay;
     }
 }

@@ -1,8 +1,12 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static int GropsOnMap;
+    List<int> pasedID = new();
+
     public static bool GameIsRunning = false;
 
     public static event Action<int> AIHealthChanged;
@@ -36,6 +40,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        GameEvents.UnitKilled += TrropDeath;
+
         Application.targetFrameRate = 60;
 
         Cursor.lockState = CursorLockMode.Confined;
@@ -70,8 +76,13 @@ public class GameManager : MonoBehaviour
 
     void AIDamage(TroopAgent a)
     {
-        aiHealth.TakeDamage(1);
-        AIHealthChanged.Invoke(Mathf.RoundToInt(aiHealth.Current));
+        if (!pasedID.Contains(a.GroupID))
+        {
+            pasedID.Add(a.GroupID);
+
+            aiHealth.TakeDamage(1);
+            AIHealthChanged.Invoke(Mathf.RoundToInt(aiHealth.Current));
+        }
     }
     void AIDeath(Health h) { GameEnd(EndType.Win); }
 
@@ -84,7 +95,7 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Timeout");
                 endAnimation.Play("TIME");
                 break;
-            case EndType.Lose:
+            case EndType.Lose: // Erstmal nicht benutzt. kann aber nützlich für erweiterungen sein
                 Debug.Log("Lose");
                 endAnimation.Play("LOSE");
                 break;
@@ -93,6 +104,29 @@ public class GameManager : MonoBehaviour
                 endAnimation.Play("WIN");
                 break;
         }
+    }
+
+    void TrropDeath(TroopAgent t)
+    {
+        UpdateTroopCount();
+    }
+
+    public static void UpdateTroopCount()
+    {
+        List<int> c = new();
+        foreach (TroopAgent t in FindObjectsByType<TroopAgent>(FindObjectsSortMode.InstanceID))
+        {
+            if(t._health > 0 && !c.Contains(t.GroupID))
+                c.Add(t.GroupID);
+        }
+        GropsOnMap = c.Count;
+        print(GropsOnMap);
+    }
+
+    void OnDestroy()
+    {
+        GameEvents.UnitKilled -= TrropDeath;
+        GameEvents.UnitExitedMap -= AIDamage;
     }
 }
 

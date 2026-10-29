@@ -15,6 +15,10 @@ public class TroopAgent : MonoBehaviour
 
     [HideInInspector] public float speedMultiplier = 1;   
 
+    public float _health
+    {
+        get { return health.Current; }
+    }
     protected Health health;
     protected WaypointPath path;
     protected int waypointIndex = 0;
