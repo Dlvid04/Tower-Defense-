@@ -377,6 +377,12 @@ public class TroopAgent : MonoBehaviour
             GameEvents.RaiseUnitKilled(this);
             Debug.Log(troop.name + " was defeated");
         }
+
+        if (troop.deathEffect != null)
+        {
+            Instantiate(troop.deathEffect, transform.position, troop.deathEffect.transform.rotation);
+        }
+
         Destroy(gameObject);
     }
 

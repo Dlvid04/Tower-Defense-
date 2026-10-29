@@ -38,5 +38,8 @@ public class Troop : ScriptableObject
 
     
     [Header("Wetter")]
-    [Min(0)] public float rainSpeedMultiplier = 0.7f;          
+    [Min(0)] public float rainSpeedMultiplier = 0.7f;  
+
+    [Header("DieAnimation")]
+    public GameObject deathEffect;        
 }
