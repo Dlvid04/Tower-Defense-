@@ -12,27 +12,34 @@ public class WeatherVisuliser : MonoBehaviour
     [SerializeField] Animator animator;
     
     [Header("Images")]
-    [SerializeField] Sprite none;
-    [SerializeField] Sprite regen;
-    [SerializeField] Sprite nebel;
-    [SerializeField] Sprite gewitter;
-    [SerializeField] Sprite frost;
-    [SerializeField] Sprite sturm;
+    public Sprite none;
+    public Sprite regen;
+    public Sprite nebel;
+    public Sprite gewitter;
+    public Sprite frost;
+    public Sprite sturm;
 
     Sprite NextIcon;
-    bool imageStae = false;
+    bool imageStae = true;
+
+    void Awake()
+    {
+        animator.SetBool("state", imageStae);
+    }
 
     public void Init(WetterArt w)
     {
-        imageA.sprite = GetImage(w);
-        WeatherManager.WetherChanged += ChangeImage;
+        imageA.sprite = none;
+        imageB.sprite = GetImage(w);
+
+        WeatherManager.NextWetherChanged += ChangeImage;
     }
     private void ChangeImage(WetterArt w)
     {
         NextIcon = GetImage(w);
         animator.SetBool("state", imageStae = !imageStae);
     }
-    Sprite GetImage(WetterArt w)
+    public Sprite GetImage(WetterArt w)
     {
         switch (w)
         {

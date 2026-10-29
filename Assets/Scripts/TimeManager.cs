@@ -65,8 +65,16 @@ public class TimeManager : MonoBehaviour
 
     void Update()
     {
+        if (!GameManager.GameIsRunning)
+            return;
+
         updateTime();
         updateMut();
+
+        if(CardManager.timer > 0)
+        {
+            CardManager.timer -= Time.deltaTime;
+        }
     }
     void updateTime()
     {
@@ -86,7 +94,7 @@ public class TimeManager : MonoBehaviour
 
             Debug.Log("Round End");
 
-            GameManager.instance.GameEnd(EndType.Timeout);
+            GameManager.Instance.GameEnd(EndType.Timeout);
         }
     }
 

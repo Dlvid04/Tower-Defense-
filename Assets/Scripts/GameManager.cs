@@ -1,9 +1,12 @@
-using System.IO;
+using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
+    public static bool GameIsRunning = false;
+
+    public static event Action<int> AIHealthChanged;
+
     static Input_TowerDefence inputActions;
     public static Input_TowerDefence InputActions
     {
@@ -15,7 +18,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public static GameManager instance;
+    static GameManager instance;
+    public static GameManager Instance
+    {
+        get
+        {
+            if (instance != null)
+                return instance;
+            return FindFirstObjectByType<GameManager>();
+        }
+    }
 
     [SerializeField] CardManager cardManager;
 
@@ -41,6 +53,8 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        GameIsRunning = true;
+
         Debug.Log("Game Start");
         StartRound();
     }
@@ -54,11 +68,16 @@ public class GameManager : MonoBehaviour
         TimeManager.StartRoundTimer();
     }
 
-    void AIDamage(TroopAgent a) { aiHealth.TakeDamage(1); }
+    void AIDamage(TroopAgent a)
+    {
+        aiHealth.TakeDamage(1);
+        AIHealthChanged.Invoke(Mathf.RoundToInt(aiHealth.Current));
+    }
     void AIDeath(Health h) { GameEnd(EndType.Win); }
 
     public void GameEnd(EndType endType)
     {
+        GameIsRunning = false;
         switch (endType)
         {
             case EndType.Timeout:

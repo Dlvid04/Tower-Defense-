@@ -62,6 +62,8 @@ public class Card : MonoBehaviour
     //public float sdf;
     void Update()
     {
+
+
         Vector2 mp = GameManager.InputActions.UI.Point.ReadValue<Vector2>();
 
 
@@ -72,50 +74,54 @@ public class Card : MonoBehaviour
         Vector2 min = new(rt.position.x - (rt.rect.width * rt.lossyScale.x / 2), rt.position.y - (rt.rect.height * rt.lossyScale.y / 2));
         Vector2 max = new(rt.position.x + (rt.rect.width * rt.lossyScale.x / 2), rt.position.y + (rt.rect.height * rt.lossyScale.y / 2));
 
-        if (GameManager.InputActions.UI.Click.IsPressed())
+        if(GameManager.GameIsRunning)
         {
+            if (GameManager.InputActions.UI.Click.IsPressed())
+            {
 
-            if (!draged && (mp.x > min.x && mp.x < max.x && mp.y > min.y && mp.y < max.y) && !CardManager.dragging)
-            {
-                CardManager.dragging = true;
-                draged = true;
-                scale = Vector3.one * 0.5f;
-                canvas.sortingOrder = 5;
-            }
-
-            if (draged)
-            {
-                target = mp;
-            }
-        }
-        else if(draged)
-        {
-            CardManager.dragging = false;
-            if (!(mp.x > min.x && mp.x < max.x && mp.y > min.y && mp.y < max.y))
-            {
-                if (Physics.Raycast(Camera.main.ScreenPointToRay(mp), out RaycastHit hit))
+                if (!draged && (mp.x > min.x && mp.x < max.x && mp.y > min.y && mp.y < max.y) && !CardManager.dragging)
                 {
-                    Debug.DrawLine(Camera.main.transform.position, hit.point, Color.green, 5);
-                    if(CardManager.Instance.PlaceCard(this))
-                        return;
+                    CardManager.dragging = true;
+                    draged = true;
+                    scale = Vector3.one * 0.5f;
+                    canvas.sortingOrder = 5;
+                }
+
+                if (draged)
+                {
+                    target = mp;
                 }
             }
+            else if (draged)
+            {
+                CardManager.dragging = false;
+                if (!(mp.x > min.x && mp.x < max.x && mp.y > min.y && mp.y < max.y))
+                {
+                    if (Physics.Raycast(Camera.main.ScreenPointToRay(mp), out RaycastHit hit))
+                    {
+                        Debug.DrawLine(Camera.main.transform.position, hit.point, Color.green, 5);
+                        if (CardManager.Instance.PlaceCard(this))
+                            return;
+                    }
+                }
 
-            target = -Vector3.one;
-            draged = false;
-            scale = Vector3.one;
-            canvas.sortingOrder = 1;
-        }
-        if (GameManager.InputActions.UI.RightClick.IsPressed())
-        {
-            CardManager.dragging = false;
-            target = -Vector3.one;
-            draged = false;
-            scale = Vector3.one;
-            canvas.sortingOrder = 1;
+                target = -Vector3.one;
+                draged = false;
+                scale = Vector3.one;
+                canvas.sortingOrder = 1;
+            }
+            if (GameManager.InputActions.UI.RightClick.IsPressed())
+            {
+                CardManager.dragging = false;
+                target = -Vector3.one;
+                draged = false;
+                scale = Vector3.one;
+                canvas.sortingOrder = 1;
+            }
         }
 
-        if (target != -Vector3.one)
+
+        if (target != -Vector3.one && GameManager.GameIsRunning)
         {
             MovingTransform.position = Vector3.MoveTowards(MovingTransform.position, target, Time.deltaTime * Mathf.Min(Vector3.Distance(MovingTransform.position, target), 500) * 10);
         }
@@ -124,7 +130,7 @@ public class Card : MonoBehaviour
             MovingTransform.position = Vector3.MoveTowards(MovingTransform.position, transform.position, Time.deltaTime * Mathf.Min(Vector3.Distance(MovingTransform.position, transform.position), 500) * 10);
         }
 
-        MovingTransform.localScale = Vector3.MoveTowards(MovingTransform.localScale, scale, Time.deltaTime * 10);
+        MovingTransform.localScale = Vector3.MoveTowards(MovingTransform.localScale, GameManager.GameIsRunning ? scale : Vector3.one, Time.deltaTime * 10);
     }
 
 #if UNITY_EDITOR

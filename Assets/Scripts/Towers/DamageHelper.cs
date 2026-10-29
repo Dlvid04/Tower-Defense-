@@ -35,6 +35,7 @@ public static class DamageHelper
 
         if (wasAlive && health.IsDead)
         {
+            CardManager.Instance.mutWallet.ChangeMut(5);
             tower.DestroyTower();
         }
         Debug.Log("Hit: " + tower.data.towerName + " gets " + damage + " DMG!");

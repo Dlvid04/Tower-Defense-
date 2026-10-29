@@ -7,6 +7,9 @@ using UnityEngine;
 public class CardManager : MonoBehaviour
 {
     #region statics
+    public static float timer = 0;
+    public static float timerMax = 0;
+
     public Wallet mutWallet = new();
     public static int MUT
     {
@@ -48,6 +51,7 @@ public class CardManager : MonoBehaviour
     [Header("Settings")]
     [SerializeField] int StartCardCount = 4;
     [SerializeField] int MaxCardsInHand = 2;
+    [SerializeField] float placeCooldown = 2;
 
 
     [Header("Debug")]
@@ -58,10 +62,15 @@ public class CardManager : MonoBehaviour
 
     void Start()
     {
+        timerMax = placeCooldown;
+
         instance = this;
+
         mutWallet = new();
         UpdateMUTDislpay();
+
         dragging = false;
+
         partical = Resources.Load<GameObject>("Particals/Spawn Particles");
 
         TimeManager.MutUpdate += UpdateMUTDislpay;
@@ -87,6 +96,9 @@ public class CardManager : MonoBehaviour
 
     public void GiveCard(CardData card)
     {
+        if (!GameManager.GameIsRunning)
+            return;
+
         if (cards.Count < MaxCardsInHand)
         {
             if (cardPrefeb == null)
@@ -119,15 +131,22 @@ public class CardManager : MonoBehaviour
 
     public void RefillCards()
     {
+        if (!GameManager.GameIsRunning)
+            return;
+
         if (cardsInDeck.Count >= 1)
         {
-            GiveCard(cardsInDeck[0]);
-            cardsInDeck.RemoveAt(0);
+            int r = Random.Range(0, cardsInDeck.Count);
+            GiveCard(cardsInDeck[r]);
+            cardsInDeck.RemoveAt(r);
         }
     }
 
     public bool PlaceCard(Card card)
     {
+        if (!GameManager.GameIsRunning || timer > 0)
+            return false;
+
         if (card != null)
         {
             if (card.CanPlace())
@@ -141,6 +160,8 @@ public class CardManager : MonoBehaviour
                 RefillCards();
 
                 Instantiate(partical, AgentStartPoint.position, partical.transform.rotation);
+
+                timer = placeCooldown;
                 return true;
             }
         }
@@ -149,12 +170,15 @@ public class CardManager : MonoBehaviour
 
     public void ChageMUT(int value)
     {
+        if (!GameManager.GameIsRunning)
+            return;
+
         if (mutWallet.ChangeMut(value))
             UpdateMUTDislpay();
     }
 
     public void UpdateMUTDislpay()
     {
-        MutVisual.text = "Mut: " + mutWallet.MUT;
+        MutVisual.text = mutWallet.MUT + "/" + mutWallet.Max;
     }
 }

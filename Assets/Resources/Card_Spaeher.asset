@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1207168bbaeec4c94586e3c5be1fea, type: 3}
   m_Name: Card_Spaeher
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  cardName: Spaeher
-  cardDescription: Card Description
+  cardName: "Sp\xE4her"
   placeCost: 1
   agent: {fileID: 2077008142581007355, guid: 8b297ea036497614194b991110aee138, type: 3}
   troopCount: 1
