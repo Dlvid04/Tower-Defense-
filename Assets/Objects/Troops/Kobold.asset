@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Troop
   color: {r: 0, g: 1, b: 0, a: 1}
   isHero: 0
-  maxHealth: 12
+  maxHealth: 90
   MovementSpeed: 4
-  damage: 10
+  damage: 7
   attackRange: 3.5
   attackCooldown: 1
   blocksProjectiles: 0
@@ -25,3 +25,4 @@ MonoBehaviour:
   auraRadius: 4
   auraReduction: 0.2
   lightningRadius: 4
+  rainSpeedMultiplier: 0.7

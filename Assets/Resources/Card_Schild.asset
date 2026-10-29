@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Card_Schild
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardName: "Schildtr\xE4ger"
-  cardDescription: Card Description
-  placeCost: 1
+  placeCost: 4
   agent: {fileID: 1254510596560312166, guid: 61c80fed3668a4e48983088efa708d74, type: 3}
   troopCount: 1

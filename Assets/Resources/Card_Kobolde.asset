@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Card_Kobolde
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardName: Kobolde
-  placeCost: 1
+  placeCost: 3
   agent: {fileID: 1876954421843017163, guid: f341f7e618a932a40925963f2a46caf2, type: 3}
   troopCount: 5

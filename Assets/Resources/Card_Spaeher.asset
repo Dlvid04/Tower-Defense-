@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Card_Spaeher
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardName: "Sp\xE4her"
-  placeCost: 1
+  placeCost: 2
   agent: {fileID: 2077008142581007355, guid: 8b297ea036497614194b991110aee138, type: 3}
   troopCount: 1

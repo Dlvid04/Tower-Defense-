@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Card_Sturmbrecher
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardName: Sturmbrecher
-  cardDescription: Card Description
-  placeCost: 1
+  placeCost: 6
   agent: {fileID: 908574381549647404, guid: d58f43be755b4b84a92e49ccf7981733, type: 3}
   troopCount: 1
