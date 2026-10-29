@@ -3,7 +3,7 @@ using UnityEngine;
 public enum AttackType
 {
     Single, //  Pfeil: ein Ziel
-    Area,   //  Kanone: Flächenschaden
+    Area,   //  Kanone: Flaechenschaden
     Cone,   //  Flamme: Kegel vor dem Turm
     Chain   //  Blitz: springt auf mehrere Ziele
 }

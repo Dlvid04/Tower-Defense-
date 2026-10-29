@@ -118,7 +118,7 @@ public static class DamageHelper
 
         if (best != target)
         {
-            Debug.Log(best.name + " blockt den Treffer für " + target.name);
+            Debug.Log(best.name + " damage block for " + target.name);
         }
         return best;
     }
