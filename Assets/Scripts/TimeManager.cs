@@ -102,6 +102,11 @@ public class TimeManager : MonoBehaviour
         }
     }
 
+    public void SetMutDisplay()
+    {
+        mutIntervalVisualiser.gameObject.SetActive(CardManager.MUT < 10 && TimerActive);
+    }
+
     void updateMut()
     {
         if (TimerActive)
@@ -114,18 +119,18 @@ public class TimeManager : MonoBehaviour
                     MutUpdate.Invoke();
                     MutTimer += mutInterval;
                 }
-                mutIntervalVisualiser.gameObject.SetActive(true);
+                SetMutDisplay();
                 mutIntervalVisualiser.value = 1 - (MutTimer / mutInterval);
             }
             else
             {
                 MutTimer = mutInterval;
-                mutIntervalVisualiser.gameObject.SetActive(false);
+                SetMutDisplay();
             }
         }
         else
         {
-            mutIntervalVisualiser.gameObject.SetActive(false);
+            SetMutDisplay();
         }
     }
 

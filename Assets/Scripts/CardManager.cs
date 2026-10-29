@@ -193,6 +193,7 @@ public class CardManager : MonoBehaviour
     public void UpdateMUTDislpay()
     {
         MutVisual.text = mutWallet.MUT + "/" + mutWallet.Max;
+        TimeManager.timeManager.SetMutDisplay();
     }
 
     void OnDestroy()
