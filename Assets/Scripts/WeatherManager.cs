@@ -50,13 +50,10 @@ public class WeatherManager : MonoBehaviour
         I++;
         if (I >= wetterAblauf.Length)
         {
-            I = -1;
-            Debug.LogError("'wetterAblauf' Index is out of range (" + I + "/" + (wetterAblauf.Length - 1) + ")");
-            return WetterArt.None;
+            I = 0;
         }
-        WetterArt w = wetterAblauf[I];
 
-        return w;
+        return wetterAblauf[I];
     }
 }
 

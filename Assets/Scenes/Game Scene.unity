@@ -4736,7 +4736,7 @@ GameObject:
   - component: {fileID: 1443968357}
   - component: {fileID: 1443968358}
   m_Layer: 0
-  m_Name: Wetter Manager
+  m_Name: Weather Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5126,7 +5126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerAI
   data: {fileID: 11400000, guid: 8cf8c6b964cfe7141924f4bae0f3ea15, type: 2}
-  buildStartTowerOnStart: 0
+  buildStartTowerOnStart: 1
   mut: 0
 --- !u!114 &1535067307
 MonoBehaviour:
