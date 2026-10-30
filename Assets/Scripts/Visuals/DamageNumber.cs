@@ -11,7 +11,13 @@ public class DamageNumber : Billboard
     {
         dir = new Vector3(Random.Range(-2f, 2f), 0, Random.Range(-2f, 2f));
         text = GetComponent<TMP_Text>();
-        text.text = Mathf.Round(damage) + "";
+        if (damage == -1)
+        {
+            text.text = "Miss";
+            text.color = Color.limeGreen;
+        }
+        else
+            text.text = Mathf.Round(damage) + "";
     }
     void Update()
     {

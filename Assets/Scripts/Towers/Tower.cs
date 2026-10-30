@@ -108,6 +108,7 @@ public class Tower : MonoBehaviour
         if (MissesInFog(currentTarget))
         {
             Debug.Log(data.towerName + " misses " + currentTarget.name + " in the fog");
+            DamageHelper.DealDamage(currentTarget, -1);
             return;
         }
 

@@ -157,6 +157,19 @@ public class GameManager : MonoBehaviour
         return g.GetComponent<HealthBar>();
     }
 
+#if UNITY_EDITOR
+    [ContextMenu("SpawnDamage")]
+    public void SpawnDamage()
+    {
+        SpawnDamageNumber(transform.position, 5);
+    }
+    [ContextMenu("SpawnMiss")]
+    public void SpawnMiss()
+    {
+        SpawnDamageNumber(transform.position, -1);
+    }
+#endif
+
     public static void SpawnDamageNumber(Vector3 pos, float amount)
     {
         DamageNumber n = Instantiate(damageNumber, pos + Vector3.up * 0.25f, Quaternion.identity);

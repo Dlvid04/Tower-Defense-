@@ -12,14 +12,20 @@ public static class DamageHelper
             troop = FindShieldBlocker(troop);
         }
 
-        damage = damage * (1 - GetAuraReduction(troop));
+        float _damage = damage * (1 - GetAuraReduction(troop));
 
         Health health = troop.GetComponent<Health>();
         if (health != null)
         {
-            health.TakeDamage(damage);
+            if (damage == -1)
+            {
+                Debug.Log("Blocked: " + troop.name);
+                health.TakeDamage(-1);
+                return;
+            }
+            health.TakeDamage(_damage);
         }
-        //Debug.Log("Hit: " + troop.name + " gets " + damage + " DMG!");
+        Debug.Log("Hit: " + troop.name + " gets " + damage + " DMG!");
     }
 
     public static void DealDamageToTower(Tower tower, float damage)

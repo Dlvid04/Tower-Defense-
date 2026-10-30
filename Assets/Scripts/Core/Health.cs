@@ -46,12 +46,19 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
+        
+
         if (IsDead)
         {
             return;
         }
 
-        GameManager.SpawnDamageNumber(transform.position + Vector3.up * healthbarOffset, amount);
+        if(healthBar != null)
+        {
+            GameManager.SpawnDamageNumber(transform.position + Vector3.up * healthbarOffset, amount);
+        }
+        if (amount == -1)
+            return;
 
         Current = Mathf.Max(0f, Current - amount);
 
