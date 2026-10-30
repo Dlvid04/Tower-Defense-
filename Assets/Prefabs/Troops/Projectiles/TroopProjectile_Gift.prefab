@@ -218,40 +218,76 @@ PrefabInstance:
       value: FogFX
       objectReference: {fileID: 0}
     - target: {fileID: 7686590434997942176, guid: aef61130d3ad6494c99ca8c223657ba5, type: 3}
+      propertyPath: prewarm
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7686590434997942176, guid: aef61130d3ad6494c99ca8c223657ba5, type: 3}
+      propertyPath: moveWithTransform
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7686590434997942176, guid: aef61130d3ad6494c99ca8c223657ba5, type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7686590434997942176, guid: aef61130d3ad6494c99ca8c223657ba5, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 7686590434997942176, guid: aef61130d3ad6494c99ca8c223657ba5, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7686590434997942176, guid: aef61130d3ad6494c99ca8c223657ba5, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7686590434997942176, guid: aef61130d3ad6494c99ca8c223657ba5, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7686590434997942176, guid: aef61130d3ad6494c99ca8c223657ba5, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
-      value: 0.13473117
+      value: 0.22745098
       objectReference: {fileID: 0}
     - target: {fileID: 7686590434997942176, guid: aef61130d3ad6494c99ca8c223657ba5, type: 3}
       propertyPath: InitialModule.startColor.maxColor.g
-      value: 0.5622641
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7686590434997942176, guid: aef61130d3ad6494c99ca8c223657ba5, type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
-      value: 0.16323334
+      value: 0.36078432
+      objectReference: {fileID: 0}
+    - target: {fileID: 7686590434997942176, guid: aef61130d3ad6494c99ca8c223657ba5, type: 3}
+      propertyPath: InitialModule.startColor.minColor.a
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7686590434997942176, guid: aef61130d3ad6494c99ca8c223657ba5, type: 3}
       propertyPath: InitialModule.startColor.minColor.b
-      value: 0.050272208
+      value: 0.22745098
       objectReference: {fileID: 0}
     - target: {fileID: 7686590434997942176, guid: aef61130d3ad6494c99ca8c223657ba5, type: 3}
       propertyPath: InitialModule.startColor.minColor.g
-      value: 0.17735851
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7686590434997942176, guid: aef61130d3ad6494c99ca8c223657ba5, type: 3}
       propertyPath: InitialModule.startColor.minColor.r
-      value: 0.034467775
+      value: 0.36078432
+      objectReference: {fileID: 0}
+    - target: {fileID: 7686590434997942176, guid: aef61130d3ad6494c99ca8c223657ba5, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.a
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8164083454756026496, guid: aef61130d3ad6494c99ca8c223657ba5, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.05
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8164083454756026496, guid: aef61130d3ad6494c99ca8c223657ba5, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.05
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8164083454756026496, guid: aef61130d3ad6494c99ca8c223657ba5, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.05
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8164083454756026496, guid: aef61130d3ad6494c99ca8c223657ba5, type: 3}
       propertyPath: m_ConstrainProportionsScale
