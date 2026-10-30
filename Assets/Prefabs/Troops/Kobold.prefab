@@ -144,6 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34bb9a59fb2ef0f4e863288161d1a940, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
+  spawnHealthBar: 1
 --- !u!136 &2102630573747252292
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -206,6 +207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d74c0898c16d3c74ea7cfe11e6a5f35b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TroopAgent
+  healthbarOffset: 2.28
   troop: {fileID: 11400000, guid: 929ee944d31890749b86edb73dd39250, type: 2}
   speedMultiplier: 1
 --- !u!1001 &3040678750505136948
