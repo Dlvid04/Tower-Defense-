@@ -15,5 +15,5 @@ MonoBehaviour:
   damage: 30
   strikeInterval: 1
   searchRadius: 5
-  visualDuration: 0.5
+  visualDuration: 1
   visualHeight: 6.76

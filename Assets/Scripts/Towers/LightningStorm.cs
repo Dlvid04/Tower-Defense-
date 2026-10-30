@@ -77,7 +77,9 @@ public class LightningStorm : MonoBehaviour
                 Debug.DrawLine(lightningRod.transform.position, nearestTower.transform.position, Color.yellow, 1f);
                 Debug.Log("The Stormbreaker channels the lightning " + nearestTower.data.towerName + " to");
 
-                GameObject rodVisual = Instantiate(strikeVisualPrefab, nearestTower.transform.position + Vector3.up * data.visualHeight, Quaternion.identity);
+                GameObject rodVisual = Instantiate(strikeVisualPrefab, nearestTower.transform.position + Vector3.up *
+                                       data.visualHeight, Quaternion.identity);
+                Destroy(rodVisual, data.visualDuration);
 
                 DamageHelper.DealDamageToTower(nearestTower, data.damage);
                 return;
@@ -123,6 +125,8 @@ public class LightningStorm : MonoBehaviour
             }
         }
 
-        GameObject visual = Instantiate(strikeVisualPrefab, hitPosition + Vector3.up * data.visualHeight, Quaternion.identity);
+        GameObject visual = Instantiate(strikeVisualPrefab, hitPosition + Vector3.up *
+                            data.visualHeight, Quaternion.identity);
+        Destroy(visual, data.visualDuration);
     }
 }
