@@ -42,7 +42,7 @@ public class BuildSlot : MonoBehaviour
 
         if (buildEffect != null)
         {
-            Instantiate(buildEffect, transform.position, Quaternion.identity);
+            Instantiate(buildEffect, transform.position, buildEffect.transform.rotation);
         }
         Debug.Log("Create tower on: " + name);
     }
