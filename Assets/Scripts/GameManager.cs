@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -118,6 +119,14 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Win");
                 endAnimation.Play("WIN");
                 break;
+        }
+    }
+
+    void Update()
+    {
+        if(inputActions.UI.Exit.IsPressed())
+        {
+            SceneManager.LoadSceneAsync("Main Menu");
         }
     }
 

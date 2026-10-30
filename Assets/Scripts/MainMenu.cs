@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
@@ -35,4 +36,14 @@ public class MainMenu : MonoBehaviour
         }
         SceneManager.LoadSceneAsync("Game Scene");
     }
+
+    void Update()
+    {
+        if (new Input_TowerDefence().UI.Exit.IsPressed())
+        {
+            Application.Quit();
+        }
+    }
+    public void Quit()
+    { Application.Quit(); }
 }
