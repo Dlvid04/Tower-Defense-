@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1207168bbaeec4c94586e3c5be1fea, type: 3}
   m_Name: Card_Schild
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  cardName: "Schildtr\xE4ger"
+  cardName: Kobold
   placeCost: 4
   agent: {fileID: 1254510596560312166, guid: 61c80fed3668a4e48983088efa708d74, type: 3}
   troopCount: 1
