@@ -10,4 +10,5 @@ public class LightningData : ScriptableObject
 
     [Header("Placeholder")]
     [Min(0)] public float visualDuration = 0.3f;
+    [Min(0)] public float visualHeight = 6.76f;
 }

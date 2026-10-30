@@ -4,7 +4,8 @@ using UnityEngine;
 public class WeatherEffects : MonoBehaviour
 {
     [Header("Nebel")]
-    public ParticleSystem fog;              
+    public ParticleSystem fog;
+    public float fogFadeOutSpeed = 3f;
 
     [Header("Regen")]
     public GameObject rainPrefab;           
@@ -81,12 +82,16 @@ public class WeatherEffects : MonoBehaviour
     // ---------- Nebel ----------
     void UpdateFog(WetterArt weather)
     {
+        ParticleSystem.MainModule fogMain = fog.main;
+
         if (weather == WetterArt.Nebel)
         {
+            fogMain.simulationSpeed = 1f;
             fog.Play();
         }
         else
         {
+            fogMain.simulationSpeed = fogFadeOutSpeed;
             fog.Stop();
         }
     }
