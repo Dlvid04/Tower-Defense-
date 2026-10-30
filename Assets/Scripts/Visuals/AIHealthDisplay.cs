@@ -15,4 +15,9 @@ public class AIHealthDisplay : MonoBehaviour
     {
         animator.SetInteger("Health", health);
     }
+
+    void OnDestroy()
+    {
+        GameManager.AIHealthChanged -= SetHealth;
+    }
 }

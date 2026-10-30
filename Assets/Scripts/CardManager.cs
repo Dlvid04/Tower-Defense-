@@ -198,8 +198,13 @@ public class CardManager : MonoBehaviour
         TimeManager.timeManager.SetMutDisplay();
     }
 
-    void OnDestroy()
+        void OnDestroy()
     {
         TimeManager.MutUpdate -= UpdateMUTDislpay;
+
+        if (mutWallet != null)
+        {
+            mutWallet.Unsubscribe();
+        }
     }
 }

@@ -36,6 +36,7 @@ public class Wallet
     {
         ChangeMut(1);
     }
+
     public bool ChangeMut(int value)
     {
         if ((value > 0 && MUT >= max) || (value < 0 && MUT <= 0) || value == 0)
@@ -45,5 +46,10 @@ public class Wallet
 
         mut = Mathf.Clamp(mut + value, 0, max);
         return true;
+    }
+
+    public void Unsubscribe()
+    {
+        TimeManager.MutUpdate -= ChangeMutUpdate;
     }
 }
