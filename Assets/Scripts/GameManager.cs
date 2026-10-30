@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
 
         GameEvents.UnitKilled += TrropDeath;
 
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = 90;
 
         Cursor.lockState = CursorLockMode.Confined;
 
@@ -159,7 +159,7 @@ public class GameManager : MonoBehaviour
 
     public static void SpawnDamageNumber(Vector3 pos, float amount)
     {
-        DamageNumber n = Instantiate(damageNumber, pos + Vector3.up * 0.5f, Quaternion.identity);
+        DamageNumber n = Instantiate(damageNumber, pos + Vector3.up * 0.25f, Quaternion.identity);
         n.SetDamage(amount);
     }
 }

@@ -17,7 +17,7 @@ public class DamageNumber : Billboard
     {
         transform.position += ((Vector3.up * speed) + (dir)) * Time.deltaTime;
         transform.localScale = Vector3.one * ( 1 - (speed / 20));
-        speed += speed * 0.05f;
+        speed += speed * 0.075f;
         if (speed > 20)
         {
             Destroy(gameObject);
