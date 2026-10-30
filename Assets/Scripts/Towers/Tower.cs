@@ -13,6 +13,7 @@ public class Tower : MonoBehaviour
 
     public Transform rotatingPart;
     public float healthbarOffset = 0;
+    public float laneFacingOffset = 0;
 
     TroopAgent currentTarget;
     WaypointPath path;
@@ -28,6 +29,13 @@ public class Tower : MonoBehaviour
         {
             Debug.LogWarning("WaypointPath is nowhere to be found in the scene!");
         }
+
+        Vector3 laneDirection = GetLaneDirection(transform.position);
+        if (laneDirection != Vector3.zero)
+        {
+            transform.rotation = Quaternion.LookRotation(laneDirection) * Quaternion.Euler(0, laneFacingOffset, 0);
+        }
+
         if (rotatingPart != null)
         {
             rotatingPartStart = Quaternion.Inverse(transform.rotation) * rotatingPart.rotation;
@@ -45,6 +53,7 @@ public class Tower : MonoBehaviour
 
         if (currentTarget == null)
         {
+            LookAtLane();
             return;
         }
 
@@ -103,6 +112,36 @@ public class Tower : MonoBehaviour
         {
             rotatingPart.rotation = Quaternion.LookRotation(direction) * rotatingPartStart;
         }
+    }
+
+    void LookAtLane()
+    {
+        if (rotatingPart == null)
+        {
+            return;
+        }
+
+        Vector3 direction = GetLaneDirection(rotatingPart.position);
+        if (direction != Vector3.zero)
+        {
+            rotatingPart.rotation = Quaternion.LookRotation(direction) * rotatingPartStart;
+        }
+    }
+
+    Vector3 GetLaneDirection(Vector3 from)
+    {
+        if (path == null)
+        {
+            return Vector3.zero;
+        }
+
+        float progress = path.ProgressAt(from);
+        int nextIndex;
+        Vector3 lanePoint = path.PointAt(progress, out nextIndex);
+
+        Vector3 direction = lanePoint - from;
+        direction.y = 0;
+        return direction;
     }
 
     void Attack()
