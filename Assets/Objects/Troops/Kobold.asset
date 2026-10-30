@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: Kobold
   m_EditorClassIdentifier: Assembly-CSharp::Troop
   isHero: 0
-  maxHealth: 90
-  MovementSpeed: 4
-  damage: 7
+  maxHealth: 650
+  MovementSpeed: 2
+  damage: 20
   attackRange: 3.5
   attackCooldown: 1
-  projectilePrefab: {fileID: 4547991331067545718, guid: 255a2227bb3185e488e05bd07e845538, type: 3}
-  blocksProjectiles: 0
+  projectilePrefab: {fileID: 2271352087670948979, guid: c1db9da58608f8e4191d8817166f7a04, type: 3}
+  blocksProjectiles: 1
   shieldRadius: 1.2
-  lightningDamageFactor: 1
+  lightningDamageFactor: 0.5
   auraRadius: 4
   auraReduction: 0.2
   lightningRadius: 4

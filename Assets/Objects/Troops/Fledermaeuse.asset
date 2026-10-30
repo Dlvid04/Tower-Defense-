@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a2c06a9e1c44969469f3bce94ade15c1, type: 3}
-  m_Name: Schildtraeger
+  m_Name: Fledermaeuse
   m_EditorClassIdentifier: Assembly-CSharp::Troop
   isHero: 0
-  maxHealth: 650
-  MovementSpeed: 2
-  damage: 20
+  maxHealth: 80
+  MovementSpeed: 6
+  damage: 25
   attackRange: 3.5
   attackCooldown: 1
-  projectilePrefab: {fileID: 2271352087670948979, guid: c1db9da58608f8e4191d8817166f7a04, type: 3}
-  blocksProjectiles: 1
+  projectilePrefab: {fileID: 7244513398091355346, guid: c0636f202ba4a864ea86223e7d471a35, type: 3}
+  blocksProjectiles: 0
   shieldRadius: 1.2
-  lightningDamageFactor: 0.5
+  lightningDamageFactor: 1
   auraRadius: 4
   auraReduction: 0.2
   lightningRadius: 4
