@@ -84,7 +84,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 90767986972771250, guid: d5313998c79787648bc8ea25ed148756, type: 3}
   attackEffectPrefab: {fileID: 0}
   attackEffectDuration: 0.2
-  rotatingPart: {fileID: 5599432868466629149}
+  rotatingPart: {fileID: 9030541523306533578}
   healthbarOffset: 4.18
 --- !u!136 &963505249980782775
 CapsuleCollider:
@@ -227,11 +227,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4470912300596264291, guid: b5bc4c3277ee15e4d9560b16e434a19a, type: 3}
   m_PrefabInstance: {fileID: 1139114504406780722}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &5599432868466629149 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4790664648388038959, guid: b5bc4c3277ee15e4d9560b16e434a19a, type: 3}
-  m_PrefabInstance: {fileID: 1139114504406780722}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4365642645237225429
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -309,5 +304,10 @@ Transform:
 --- !u!4 &5349362077698733072 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8550401293825663941, guid: eff807eadc009604bb7c72caad3df904, type: 3}
+  m_PrefabInstance: {fileID: 4365642645237225429}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &9030541523306533578 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4739771909257856287, guid: eff807eadc009604bb7c72caad3df904, type: 3}
   m_PrefabInstance: {fileID: 4365642645237225429}
   m_PrefabAsset: {fileID: 0}

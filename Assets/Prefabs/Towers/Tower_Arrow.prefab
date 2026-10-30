@@ -53,7 +53,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 6574604068556248065, guid: 0d0170c85b71e3c44a0e2a0ac5787dbe, type: 3}
   attackEffectPrefab: {fileID: 0}
   attackEffectDuration: 0.2
-  rotatingPart: {fileID: 6236775892955165171}
+  rotatingPart: {fileID: 5917023936784243461}
   healthbarOffset: 4.17
 --- !u!136 &8433061450439034023
 CapsuleCollider:
@@ -244,11 +244,6 @@ PrefabInstance:
 --- !u!4 &1036891203150593612 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4989131342942537074, guid: 904737a7e0df8ec44b22e0efc057635d, type: 3}
-  m_PrefabInstance: {fileID: 5431116351540247358}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &6236775892955165171 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2148860419497839309, guid: 904737a7e0df8ec44b22e0efc057635d, type: 3}
   m_PrefabInstance: {fileID: 5431116351540247358}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8697764601160088713
