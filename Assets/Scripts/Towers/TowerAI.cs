@@ -186,7 +186,7 @@ public class TowerAI : MonoBehaviour
     Tower ChooseTower(TroopAgent frontTroop)
     {
         TroopAgent[] allTroops = FindObjectsByType<TroopAgent>(FindObjectsSortMode.None);
-        if (allTroops.Length >= data.groupSize)
+        if (GameManager.GropsOnMap >= data.groupSize)
         {
             return data.groupTower;
         }
