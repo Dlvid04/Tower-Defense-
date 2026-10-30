@@ -1877,7 +1877,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed7be8dcd5b53e3419a96d17fbebf862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TimeManager
-  roundLength: 0.1
+  roundLength: 4
   mutInterval: 3
   TimerText: {fileID: 1510175711}
   mutIntervalVisualiser: {fileID: 2043528428}
