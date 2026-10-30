@@ -18,6 +18,7 @@ MonoBehaviour:
   damage: 20
   attackRange: 3.5
   attackCooldown: 1
+  projectilePrefab: {fileID: 2271352087670948979, guid: c1db9da58608f8e4191d8817166f7a04, type: 3}
   blocksProjectiles: 1
   shieldRadius: 1.2
   lightningDamageFactor: 0.5

@@ -24,7 +24,8 @@ public class Troop : ScriptableObject
     [Header("Kampf")]
     [Min(0)] public float damage = 5;
     [Min(0.5f)] public float attackRange = 2;
-    [Min(0.1f)] public float attackCooldown = 1;   
+    [Min(0.1f)] public float attackCooldown = 1;
+    public TroopProjectile projectilePrefab;
 
     [Header("Schildträger")]
     public bool blocksProjectiles = false;

@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 400982017501003491}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.6, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -178,6 +178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TroopAgent
   healthbarOffset: 1.4
+  firePoint: {fileID: 7394858844742352758}
   troop: {fileID: 11400000, guid: b14a723120e80144da49d3baf0f7a9eb, type: 2}
   speedMultiplier: 1
 --- !u!1 &6473990893419770743

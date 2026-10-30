@@ -13,6 +13,7 @@ public class TroopAgent : MonoBehaviour
     }
 
     public float healthbarOffset = 0;
+    public Transform firePoint;
 
     public Troop troop;
 
@@ -367,7 +368,21 @@ public class TroopAgent : MonoBehaviour
         if (attackTimer <= 0)
         {
             PlayAnimation("Attack");
-            DamageHelper.DealDamageToTower(currentTarget, troop.damage);
+            if (troop.projectilePrefab != null)
+            {
+                Vector3 startPosition = transform.position;
+                if (firePoint != null)
+                {
+                    startPosition = firePoint.position;
+                }
+
+                TroopProjectile projectile = Instantiate(troop.projectilePrefab, startPosition, Quaternion.identity);
+                projectile.Launch(currentTarget, troop.damage);
+            }
+            else
+            {
+                DamageHelper.DealDamageToTower(currentTarget, troop.damage);
+            }
             attackTimer = troop.attackCooldown;
         }
     }

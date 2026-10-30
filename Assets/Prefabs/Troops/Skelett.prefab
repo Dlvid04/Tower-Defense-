@@ -210,6 +210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TroopAgent
   healthbarOffset: 2.8
+  firePoint: {fileID: 8380909504199193553}
   troop: {fileID: 11400000, guid: 9ba578c5f6078c246ba9f6fa58dc2272, type: 2}
   speedMultiplier: 1
 --- !u!1 &7607589780240986520
