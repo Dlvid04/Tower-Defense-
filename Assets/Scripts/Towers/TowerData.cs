@@ -27,6 +27,7 @@ public class TowerData : ScriptableObject
     [Min(0)] public float areaRadius = 2.5f;            // Kanone: Radius der Explosion
     [Range(10, 180)] public float coneAngle = 60;       // Flamme: Breite des Kegels in Grad
     [Min(0)] public int chainTargets = 3;               // Blitz: Anzahl der Ziele
+    [Min(0)] public float chainRadius = 1f;
 
     [Header("Weather")]
     [Min(0)] public float fogRangeMultiplier = 0.6f;        // Nebel:       Reichweite  (0.6 = -40 %)

@@ -8,6 +8,8 @@ public class Tower : MonoBehaviour
     public Projectile projectilePrefab;
     public GameObject attackEffectPrefab;
     public float attackEffectDuration = 0.2f;
+    public GameObject destroyEffectPrefab;
+    public float destroyEffectDuration = 1f;
 
     public Transform rotatingPart;
     public float healthbarOffset = 0;
@@ -223,7 +225,7 @@ public class Tower : MonoBehaviour
 
     TroopAgent FindNextChainTarget(Vector3 from, List<TroopAgent> alreadyHit)
     {
-        List<TroopAgent> troopsInRange = DamageHelper.GetTroopsInRadius(transform.position, GetRange());
+        List<TroopAgent> troopsInRange = DamageHelper.GetTroopsInRadius(from, data.chainRadius);
 
         TroopAgent best = null;
         float bestDistance = Mathf.Infinity;
@@ -311,6 +313,11 @@ public class Tower : MonoBehaviour
             TowerDestroyed(this);
         }
 
+        if (destroyEffectPrefab != null)
+        {
+            GameObject effect = Instantiate(destroyEffectPrefab, transform.position, destroyEffectPrefab.transform.rotation);
+            Destroy(effect, destroyEffectDuration);
+        }
         Debug.Log(data.towerName + " was destroyed");
         Destroy(gameObject);
     }

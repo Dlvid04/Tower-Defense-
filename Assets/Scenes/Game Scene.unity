@@ -4214,7 +4214,7 @@ PrefabInstance:
     - target: {fileID: 5920953782471784975, guid: d031c7ce547f88249bdc101366330125, type: 3}
       propertyPath: testTower
       value: 
-      objectReference: {fileID: 6641567098770469074, guid: a534493836b30084998f1253ce4664f0, type: 3}
+      objectReference: {fileID: 4738431837106846105, guid: 57ede7a61bb5ae046802973da581030b, type: 3}
     - target: {fileID: 8477247349119958946, guid: d031c7ce547f88249bdc101366330125, type: 3}
       propertyPath: m_IsActive
       value: 0
