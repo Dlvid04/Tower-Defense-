@@ -80,6 +80,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: e61b873d5905bff4e8c2cc2a6202e273, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1b83d076821adad4ab5cf06887bf3165, type: 2}
     - target: {fileID: 919132149155446097, guid: e61b873d5905bff4e8c2cc2a6202e273, type: 3}
       propertyPath: m_Name
       value: Blitzturm

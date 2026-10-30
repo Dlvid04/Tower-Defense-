@@ -81,6 +81,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: b4f9d979a5b37204082386fd8163cde4, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1b83d076821adad4ab5cf06887bf3165, type: 2}
     - target: {fileID: 919132149155446097, guid: b4f9d979a5b37204082386fd8163cde4, type: 3}
       propertyPath: m_Name
       value: Baliste
@@ -143,6 +147,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 0b4fce05e6abb644f9afc91c3251c6b0, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1b83d076821adad4ab5cf06887bf3165, type: 2}
     - target: {fileID: 919132149155446097, guid: 0b4fce05e6abb644f9afc91c3251c6b0, type: 3}
       propertyPath: m_Name
       value: Pfeilturm

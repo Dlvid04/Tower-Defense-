@@ -128,6 +128,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 05f9a8011be64b54e81706f70c7ca032, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1b83d076821adad4ab5cf06887bf3165, type: 2}
     - target: {fileID: 919132149155446097, guid: 05f9a8011be64b54e81706f70c7ca032, type: 3}
       propertyPath: m_Name
       value: Katapult_Werfarm
@@ -193,6 +197,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 17f55433d6679c846951ab36150149ce, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1b83d076821adad4ab5cf06887bf3165, type: 2}
     - target: {fileID: 919132149155446097, guid: 17f55433d6679c846951ab36150149ce, type: 3}
       propertyPath: m_Name
       value: Kanonenturm
@@ -255,6 +263,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 0fd75a84ec52732418a167b74b2b4c4a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1b83d076821adad4ab5cf06887bf3165, type: 2}
     - target: {fileID: 919132149155446097, guid: 0fd75a84ec52732418a167b74b2b4c4a, type: 3}
       propertyPath: m_Name
       value: Katapult_Gestell
