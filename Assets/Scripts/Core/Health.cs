@@ -9,12 +9,12 @@ public class Health : MonoBehaviour
     Team team;
     float maxHealth = 100f;
 
-#if UNITY_EDITOR // To have a visual in the editor
+//#if UNITY_EDITOR // To have a visual in the editor
     float currentHealth = 0;
     public float Current { get { return currentHealth; } set { currentHealth = value; } }
-#else
-    public float Current { get; private set; }
-#endif
+//#else
+//    public float Current { get; private set; }
+//#endif
     public bool IsDead { get; private set; }
 
     public event Action<Health> OnDied;

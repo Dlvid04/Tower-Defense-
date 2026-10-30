@@ -115,6 +115,7 @@ MonoBehaviour:
   attackEffectPrefab: {fileID: 4453578850038758324, guid: 6956330d965de064f969a1fcd0c34d56, type: 3}
   attackEffectDuration: 1
   rotatingPart: {fileID: 0}
+  healthbarOffset: 4.51
 --- !u!136 &8091111269804840127
 CapsuleCollider:
   m_ObjectHideFlags: 0

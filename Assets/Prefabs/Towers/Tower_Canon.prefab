@@ -115,6 +115,7 @@ MonoBehaviour:
   attackEffectPrefab: {fileID: 0}
   attackEffectDuration: 0.2
   rotatingPart: {fileID: 5599432868466629149}
+  healthbarOffset: 4.18
 --- !u!136 &963505249980782775
 CapsuleCollider:
   m_ObjectHideFlags: 0
