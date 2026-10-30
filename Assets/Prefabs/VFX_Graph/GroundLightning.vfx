@@ -2564,7 +2564,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Gradient, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"colorKeys":[{"color":{"r":0.7490196228027344,"g":0.5998005270957947,"b":0.0,"a":1.0},"time":0.0},{"color":{"r":64.00000762939453,"g":51.24997329711914,"b":0.0,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":1.0,"time":0.0},{"alpha":1.0,"time":1.0}],"gradientMode":0}'
+      m_SerializableObject: '{"colorKeys":[{"color":{"r":0.1872549057006836,"g":0.14995013177394868,"b":0.0,"a":1.0},"time":0.0},{"color":{"r":64.00000762939453,"g":51.24997329711914,"b":0.0,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":1.0,"time":0.0},{"alpha":1.0,"time":1.0}],"gradientMode":0}'
     m_Space: -1
   m_Property:
     name: gradient
