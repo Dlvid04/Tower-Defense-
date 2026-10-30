@@ -41,8 +41,8 @@ public class WeatherManager : MonoBehaviour
 
             nextWeather = TryGetNext();
 
-            WetherChanged.Invoke(curentWeather);
-            NextWetherChanged.Invoke(nextWeather);
+            WetherChanged?.Invoke(curentWeather);
+            NextWetherChanged?.Invoke(nextWeather);
         }
     }
     WetterArt TryGetNext()

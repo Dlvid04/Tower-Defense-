@@ -2129,7 +2129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed7be8dcd5b53e3419a96d17fbebf862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TimeManager
-  roundLength: 1
+  roundLength: 4
   mutInterval: 3
   TimerText: {fileID: 1510175711}
   mutIntervalVisualiser: {fileID: 2043528428}
@@ -7000,7 +7000,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeatherManager
   wetterAblauf: 000000000200000000000000010000000000000003000000
-  interval: 10
+  interval: 40
 --- !u!1 &1462596942
 GameObject:
   m_ObjectHideFlags: 0
