@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static int GropsOnMap;
-    List<int> pasedID = new();
+    static List<int> pasedID = new();
 
     public static bool GameIsRunning = false;
 
@@ -40,6 +40,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        pasedID.Clear();
+
+
         GameEvents.UnitKilled += TrropDeath;
 
         Application.targetFrameRate = 60;
@@ -83,6 +86,7 @@ public class GameManager : MonoBehaviour
             aiHealth.TakeDamage(1);
             AIHealthChanged.Invoke(Mathf.RoundToInt(aiHealth.Current));
         }
+        UpdateTroopCount();
     }
     void AIDeath(Health h) { GameEnd(EndType.Win); }
 
@@ -108,15 +112,17 @@ public class GameManager : MonoBehaviour
 
     void TrropDeath(TroopAgent t)
     {
+        t._health = 0;
         UpdateTroopCount();
     }
 
     public static void UpdateTroopCount()
     {
+        print("update troop count");
         List<int> c = new();
         foreach (TroopAgent t in FindObjectsByType<TroopAgent>(FindObjectsSortMode.InstanceID))
         {
-            if(t._health > 0 && !c.Contains(t.GroupID))
+            if(t._health > 0 && !c.Contains(t.GroupID) && !pasedID.Contains(t.GroupID))
                 c.Add(t.GroupID);
         }
         GropsOnMap = c.Count;

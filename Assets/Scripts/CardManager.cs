@@ -65,6 +65,8 @@ public class CardManager : MonoBehaviour
 
     void Start()
     {
+        timer = 0;
+
         freeCardUsed = false;
 
         timerMax = placeCooldown;

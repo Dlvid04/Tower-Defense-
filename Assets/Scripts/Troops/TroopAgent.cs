@@ -18,6 +18,7 @@ public class TroopAgent : MonoBehaviour
     public float _health
     {
         get { return health.Current; }
+        set { health.Current = Mathf.Max(value, 0); }
     }
     protected Health health;
     protected WaypointPath path;
@@ -392,7 +393,7 @@ public class TroopAgent : MonoBehaviour
         {
             FinishGroup();
             GameEvents.RaiseUnitExitedMap(this);
-            Debug.Log(troop.name + " has left the map: AI loses 1 life");
+            //Debug.Log(troop.name + " has left the map: AI loses 1 life");
         }
 
         initialized = false;  
