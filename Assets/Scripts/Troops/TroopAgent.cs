@@ -17,7 +17,7 @@ public class TroopAgent : MonoBehaviour
 
     public Troop troop;
 
-    [HideInInspector] public float speedMultiplier = 1;   
+    [HideInInspector] public float speedMultiplier = 1;
 
     public float _health
     {
@@ -32,15 +32,25 @@ public class TroopAgent : MonoBehaviour
     Animator anim;
     bool isWalking = false;
     bool initialized = false;
-    Tower currentTarget;    
+    Tower currentTarget;
     float attackTimer;
     static List<int> finishedGroups = new List<int>();
-    
-    int spawnOrder = 0;                         
-    Vector3 walkDirection = Vector3.forward;   
-    Vector3 anchorPosition;                    
-    static float formationSpacing = 0.9f;       
-    static float catchUpFactor = 1.5f;        
+
+    int spawnOrder = 0;
+    Vector3 walkDirection = Vector3.forward;
+    Vector3 anchorPosition;
+    static float formationSpacing = 0.9f;
+    static float catchUpFactor = 1.5f;
+
+    [Header("Smooth movement")]
+    public float turnSpeed = 360f;
+    public float cornerRadius = 0.8f;
+    public float acceleration = 8f;
+    public float followSmoothTime = 0.2f;
+    public float laneHalfWidth = 1.5f;
+
+    float currentSpeed = 0;
+    Vector3 followVelocity = Vector3.zero;
 
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
@@ -48,7 +58,7 @@ public class TroopAgent : MonoBehaviour
     {
         finishedGroups.Clear();
     }
-    
+
     public virtual void Init(int groupID)
     {
         this.groupID = groupID;
@@ -71,7 +81,7 @@ public class TroopAgent : MonoBehaviour
         }
 
         spawnOrder = GetSpawnOrder();
-       anchorPosition = transform.position;
+        anchorPosition = transform.position;
         waypointIndex = 0;
         initialized = true;
     }
@@ -90,11 +100,11 @@ public class TroopAgent : MonoBehaviour
         return order;
     }
 
-     TroopAgent GetGroupLeader()
+    TroopAgent GetGroupLeader()
     {
         if (groupID == 0)
         {
-            return null; 
+            return null;
         }
 
         TroopAgent leader = null;
@@ -137,7 +147,7 @@ public class TroopAgent : MonoBehaviour
             count = count + 1;
             if (other.spawnOrder < spawnOrder)
             {
-                rank = rank + 1;   
+                rank = rank + 1;
             }
         }
         return GetSlot(rank, count);
@@ -145,23 +155,23 @@ public class TroopAgent : MonoBehaviour
 
     Vector3 GetSlot(int rank, int count)
     {
-        float side = formationSpacing / 2; 
-        float row = formationSpacing / 2;    
+        float side = formationSpacing / 2;
+        float row = formationSpacing / 2;
 
-        if (count == 2)   
+        if (count == 2)
         {
             if (rank == 0) return new Vector3(-side, 0, 0);
             return new Vector3(side, 0, 0);
         }
 
-        if (count == 3) 
+        if (count == 3)
         {
             if (rank == 0) return new Vector3(0, 0, row);
             if (rank == 1) return new Vector3(-side, 0, -row);
             return new Vector3(side, 0, -row);
         }
 
-        if (count == 4) 
+        if (count == 4)
         {
             if (rank == 0) return new Vector3(-side, 0, row);
             if (rank == 1) return new Vector3(side, 0, row);
@@ -169,7 +179,7 @@ public class TroopAgent : MonoBehaviour
             return new Vector3(side, 0, -row);
         }
 
-        if (count >= 5)   
+        if (count >= 5)
         {
             if (rank == 0) return new Vector3(0, 0, formationSpacing);
             if (rank == 1) return new Vector3(-side, 0, 0);
@@ -178,7 +188,7 @@ public class TroopAgent : MonoBehaviour
             if (rank == 4) return new Vector3(side, 0, -formationSpacing);
         }
 
-        return Vector3.zero;  
+        return Vector3.zero;
     }
 
     void Start()
@@ -191,7 +201,7 @@ public class TroopAgent : MonoBehaviour
 
     void Update()
     {
-        if(GameManager.GameIsRunning)
+        if (GameManager.GameIsRunning)
             TroopUpdate();
     }
 
@@ -212,21 +222,29 @@ public class TroopAgent : MonoBehaviour
 
         if (currentTarget != null)
         {
-            canMove = false;  
+            canMove = false;
             Attack();
         }
         else
         {
-            canMove = true;   
+            Tower groupTarget = GetGroupTarget();
+            if (groupTarget != null)
+            {
+                MoveTowardTower(groupTarget);
+                return;
+            }
+            canMove = true;
         }
 
         Move();
     }
 
-        void Move()
+    void Move()
     {
         if (canMove == false || path == null || waypointIndex >= path.points.Length)
         {
+            currentSpeed = 0;
+            followVelocity = Vector3.zero;
             SetWalking(false);
             return;
         }
@@ -234,13 +252,13 @@ public class TroopAgent : MonoBehaviour
         TroopAgent leader = GetGroupLeader();
         if (leader == null)
         {
-            MoveAlongLane();  
+            MoveAlongLane();
             return;
         }
 
         if (leader == this)
         {
-            MoveAnchor();     
+            MoveAnchor();
         }
         else
         {
@@ -258,16 +276,15 @@ public class TroopAgent : MonoBehaviour
         target.y = transform.position.y;
 
         Vector3 direction = target - transform.position;
-        if (direction.magnitude < 0.1f)
+        if (direction.magnitude < GetSwitchDistance())
         {
             waypointIndex = waypointIndex + 1;
             return;
         }
 
         walkDirection = direction.normalized;
-        float speed = troop.Speed * speedMultiplier * GetWeatherSpeed();
-        transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
-        transform.rotation = Quaternion.LookRotation(direction);
+        transform.position = Vector3.MoveTowards(transform.position, target, GetSmoothSpeed() * Time.deltaTime);
+        TurnTowards(direction);
         SetWalking(true);
     }
 
@@ -277,15 +294,14 @@ public class TroopAgent : MonoBehaviour
         target.y = anchorPosition.y;
 
         Vector3 direction = target - anchorPosition;
-        if (direction.magnitude < 0.1f)
+        if (direction.magnitude < GetSwitchDistance())
         {
             waypointIndex = waypointIndex + 1;
             return;
         }
 
-        walkDirection = direction.normalized;
-        float speed = troop.Speed * speedMultiplier * GetWeatherSpeed();
-        anchorPosition = Vector3.MoveTowards(anchorPosition, target, speed * Time.deltaTime);
+        walkDirection = Vector3.RotateTowards(walkDirection, direction.normalized, turnSpeed * Mathf.Deg2Rad * Time.deltaTime, 0);
+        anchorPosition = Vector3.MoveTowards(anchorPosition, target, GetSmoothSpeed() * Time.deltaTime);
     }
 
     void MoveToSlot()
@@ -294,29 +310,103 @@ public class TroopAgent : MonoBehaviour
         Vector3 target = anchorPosition + turn * GetFormationOffset();
         target.y = transform.position.y;
 
-        Vector3 direction = target - transform.position;
-        if (direction.magnitude < 0.05f)
+        float maxSpeed = troop.Speed * speedMultiplier * GetWeatherSpeed() * catchUpFactor;
+        transform.position = Vector3.SmoothDamp(transform.position, target, ref followVelocity, followSmoothTime, maxSpeed);
+        TurnTowards(walkDirection);
+        SetWalking(followVelocity.magnitude > 0.05f);
+    }
+
+    float GetSwitchDistance()
+    {
+        if (waypointIndex >= path.points.Length - 1)
         {
-            transform.rotation = turn;
-            SetWalking(false);
+            return 0.1f;
+        }
+        return cornerRadius;
+    }
+
+    float GetSmoothSpeed()
+    {
+        float speed = troop.Speed * speedMultiplier * GetWeatherSpeed();
+        currentSpeed = Mathf.MoveTowards(currentSpeed, speed, acceleration * Time.deltaTime);
+        return currentSpeed;
+    }
+
+    void TurnTowards(Vector3 direction)
+    {
+        direction.y = 0;
+        if (direction == Vector3.zero)
+        {
             return;
         }
+        Quaternion goal = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, goal, turnSpeed * Time.deltaTime);
+    }
 
-        float speed = troop.Speed * speedMultiplier * GetWeatherSpeed() * catchUpFactor;
-        transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
-        transform.rotation = turn;
+    Tower GetGroupTarget()
+    {
+        if (groupID == 0)
+        {
+            return null;
+        }
+
+        TroopAgent[] allTroops = FindObjectsByType<TroopAgent>(FindObjectsSortMode.None);
+        foreach (TroopAgent other in allTroops)
+        {
+            if (other == this || other.GroupID != groupID || other.initialized == false)
+            {
+                continue;
+            }
+            if (other.health == null || other.health.IsDead)
+            {
+                continue;
+            }
+            if (other.currentTarget != null)
+            {
+                return other.currentTarget;
+            }
+        }
+        return null;
+    }
+
+    void MoveTowardTower(Tower tower)
+    {
+        Quaternion turn = Quaternion.LookRotation(walkDirection);
+        Vector3 target = tower.transform.position + turn * (GetFormationOffset() * 0.5f);
+        target = ClampToLane(target);
+        target.y = transform.position.y;
+
+        currentSpeed = 0;
+        float speed = troop.Speed * speedMultiplier * GetWeatherSpeed();
+        transform.position = Vector3.SmoothDamp(transform.position, target, ref followVelocity, followSmoothTime, speed);
+        TurnTowards(target - transform.position);
         SetWalking(true);
+    }
+
+    Vector3 ClampToLane(Vector3 point)
+    {
+        if (path == null)
+        {
+            return point;
+        }
+
+        int nextIndex;
+        Vector3 middle = path.PointAt(path.ProgressAt(point), out nextIndex);
+        Vector3 side = point - middle;
+        side.y = 0;
+        side = Vector3.ClampMagnitude(side, laneHalfWidth);
+        return new Vector3(middle.x + side.x, point.y, middle.z + side.z);
     }
 
     float GetWeatherSpeed()
     {
         if (WeatherManager.curentWeather == WetterArt.Regen)
         {
-            return troop.rainSpeedMultiplier;  
+            return troop.rainSpeedMultiplier;
         }
         return 1;
     }
-    
+
     Tower FindTarget()
     {
         Tower[] allTowers = FindObjectsByType<Tower>(FindObjectsSortMode.None);
@@ -357,12 +447,7 @@ public class TroopAgent : MonoBehaviour
 
     void Attack()
     {
-        Vector3 direction = currentTarget.transform.position - transform.position;
-        direction.y = 0;
-        if (direction != Vector3.zero)
-        {
-            transform.rotation = Quaternion.LookRotation(direction);
-        }
+        TurnTowards(currentTarget.transform.position - transform.position);
 
         attackTimer = attackTimer - Time.deltaTime;
         if (attackTimer <= 0)
@@ -415,7 +500,7 @@ public class TroopAgent : MonoBehaviour
             //Debug.Log(troop.name + " has left the map: AI loses 1 life");
         }
 
-        initialized = false;  
+        initialized = false;
         Destroy(gameObject);
     }
 

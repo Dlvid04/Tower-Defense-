@@ -5262,7 +5262,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Erste Karte ist umsonst!
+  m_text: The first card is free
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 88deea96a62be8f4d9d4601daef93587, type: 2}
   m_sharedMaterial: {fileID: 3109935327615331783, guid: 88deea96a62be8f4d9d4601daef93587, type: 2}
