@@ -47,6 +47,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildSlot
   testTower: {fileID: 8567646003655307400, guid: 7d999252815551341898dd1a44b87f6b, type: 3}
+  buildCooldown: 3
+  slotMesh: {fileID: 135138203092943886}
+  buildEffect: {fileID: 5887771772766720563, guid: a62c1c8dddb9cfd43935bc08d1f1f980, type: 3}
 --- !u!1 &8477247349119958946
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,6 +197,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b3939cf9c995d744a6ff1f817ebec91, type: 3}
+--- !u!1 &135138203092943886 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5308103872732411842, guid: 0b3939cf9c995d744a6ff1f817ebec91, type: 3}
+  m_PrefabInstance: {fileID: 5209036544818000844}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &768932282793778868 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4819411209212620152, guid: 0b3939cf9c995d744a6ff1f817ebec91, type: 3}

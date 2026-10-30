@@ -4,6 +4,8 @@ public class BuildSlot : MonoBehaviour
 {
     [SerializeField] GameObject testTower;
     [SerializeField] float buildCooldown = 3f;
+    [SerializeField] GameObject slotMesh;
+    [SerializeField] GameObject buildEffect;
 
     GameObject currentTower;
 
@@ -33,12 +35,25 @@ public class BuildSlot : MonoBehaviour
         }
 
         currentTower = Instantiate(towerPrefab, transform.position, transform.rotation, transform);
+        if (slotMesh != null)
+        {
+            slotMesh.SetActive(false);
+        }
+
+        if (buildEffect != null)
+        {
+            Instantiate(buildEffect, transform.position, Quaternion.identity);
+        }
         Debug.Log("Create tower on: " + name);
     }
 
     public void Clear()
     {
         currentTower = null;
+        if (slotMesh != null)
+        {
+            slotMesh.SetActive(true);
+        }
         canBuildAgainAt = Time.time + buildCooldown;
         Debug.Log(name + " is blocked for " + buildCooldown + " s");
     }
