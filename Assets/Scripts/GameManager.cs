@@ -99,7 +99,11 @@ public class GameManager : MonoBehaviour
 
     public void GameEnd(EndType endType)
     {
+        if (!GameIsRunning)
+            return;
+
         GameIsRunning = false;
+
         switch (endType)
         {
             case EndType.Timeout:
@@ -155,7 +159,7 @@ public class GameManager : MonoBehaviour
 
     public static void SpawnDamageNumber(Vector3 pos, float amount)
     {
-        DamageNumber n = Instantiate(damageNumber, pos, Quaternion.identity);
+        DamageNumber n = Instantiate(damageNumber, pos + Vector3.up * 0.5f, Quaternion.identity);
         n.SetDamage(amount);
     }
 }

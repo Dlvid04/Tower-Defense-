@@ -190,7 +190,8 @@ public class TroopAgent : MonoBehaviour
 
     void Update()
     {
-        TroopUpdate();
+        if(GameManager.GameIsRunning)
+            TroopUpdate();
     }
 
 
