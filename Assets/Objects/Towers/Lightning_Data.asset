@@ -15,4 +15,4 @@ MonoBehaviour:
   damage: 30
   strikeInterval: 1
   searchRadius: 5
-  visualDuration: 15
+  visualDuration: 3
