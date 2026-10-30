@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] Health aiHealth;
     [SerializeField] Animator endAnimation;
+    [SerializeField] GameObject healthbarPrefab;
 
     void Start()
     {
@@ -54,7 +55,7 @@ public class GameManager : MonoBehaviour
         instance = this;
         StartGame();
 
-        aiHealth.Init(Team.AI, 3);
+        aiHealth.Init(Team.AI, 3, spawnHealthBar: false);
         aiHealth.OnDied += AIDeath;
 
         GameEvents.UnitExitedMap += AIDamage;
@@ -70,6 +71,8 @@ public class GameManager : MonoBehaviour
 
     public void StartRound()
     {
+        UpdateTroopCount();
+
         Debug.Log("Starting new round");
 
         cardManager.GiveStarterCards();
@@ -133,6 +136,17 @@ public class GameManager : MonoBehaviour
     {
         GameEvents.UnitKilled -= TrropDeath;
         GameEvents.UnitExitedMap -= AIDamage;
+    }
+
+    public HealthBar AddHealthbar(Health h, float offset = 0)
+    {
+        if (h == null)
+            return null;
+
+        GameObject g = Instantiate(healthbarPrefab, h.transform);
+        g.transform.localPosition = Vector3.up * offset;
+
+        return g.GetComponent<HealthBar>();
     }
 }
 

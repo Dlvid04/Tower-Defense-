@@ -18,7 +18,7 @@ public static class DamageHelper
         {
             health.TakeDamage(damage);
         }
-        Debug.Log("Hit: " + troop.name + " gets " + damage + " DMG!");
+        //Debug.Log("Hit: " + troop.name + " gets " + damage + " DMG!");
     }
 
     public static void DealDamageToTower(Tower tower, float damage)
@@ -27,7 +27,7 @@ public static class DamageHelper
         if (health == null)
         {
             health = tower.gameObject.AddComponent<Health>();
-            health.Init(Team.AI, tower.data.maxHealth);
+            health.Init(Team.AI, tower.data.maxHealth, tower.healthbarOffset);
         }
 
         bool wasAlive = health.IsDead == false;

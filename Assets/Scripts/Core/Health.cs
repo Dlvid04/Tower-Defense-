@@ -18,10 +18,17 @@ public class Health : MonoBehaviour
     public bool IsDead { get; private set; }
 
     public event Action<Health> OnDied;
-    public event Action<float, float> OnHealthChanged;   
+    public event Action<float, float> OnHealthChanged;
 
-    public void Init(Team t, float max)
+    HealthBar healthBar;
+    float healthbarOffset = 0;
+    public bool spawnHealthBar = true;
+
+    public void Init(Team t, float max, float healthbarOffset = 0, bool spawnHealthBar = true)
     {
+        this.healthbarOffset = healthbarOffset;
+        this.spawnHealthBar = spawnHealthBar;
+
         team = t;
         maxHealth = max;
         Current = max;
@@ -45,6 +52,10 @@ public class Health : MonoBehaviour
         }
 
         Current = Mathf.Max(0f, Current - amount);
+
+        if(healthBar == null) healthBar = GameManager.Instance.AddHealthbar(this, healthbarOffset);
+        if(healthBar != null) healthBar.Value = Current / maxHealth;
+
         OnHealthChanged?.Invoke(Current, maxHealth);
 
         if (Current <= 0f)

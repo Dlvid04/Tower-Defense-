@@ -2138,6 +2138,7 @@ MonoBehaviour:
   cardManager: {fileID: 757199473}
   aiHealth: {fileID: 1535067307}
   endAnimation: {fileID: 1644262061}
+  healthbarPrefab: {fileID: 6541373183382091114, guid: a6493c431331e864d906ea2d84a785e8, type: 3}
 --- !u!114 &624893087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6609,6 +6610,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34bb9a59fb2ef0f4e863288161d1a940, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
+  spawnHealthBar: 1
 --- !u!1001 &1536390229
 PrefabInstance:
   m_ObjectHideFlags: 0

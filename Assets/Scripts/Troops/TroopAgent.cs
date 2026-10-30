@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 [RequireComponent(typeof(Health))]
 public class TroopAgent : MonoBehaviour
@@ -10,6 +11,8 @@ public class TroopAgent : MonoBehaviour
     {
         get { return groupID; }
     }
+
+    public float healthbarOffset = 0;
 
     public Troop troop;
 
@@ -57,7 +60,7 @@ public class TroopAgent : MonoBehaviour
             return;
         }
 
-        health.Init(Team.Player, troop.MaxHealth);
+        health.Init(Team.Player, troop.MaxHealth, healthbarOffset);
         health.OnDied += OnDied;
 
         path = FindFirstObjectByType<WaypointPath>();
@@ -475,4 +478,10 @@ public class TroopAgent : MonoBehaviour
         }
         return null;
     }
+#if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawSphere(transform.position + Vector3.up * healthbarOffset, 0.1f);
+    }
+#endif
 }

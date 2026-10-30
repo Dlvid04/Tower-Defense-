@@ -10,6 +10,7 @@ public class Tower : MonoBehaviour
     public float attackEffectDuration = 0.2f;
 
     public Transform rotatingPart;
+    public float healthbarOffset = 0;
 
     TroopAgent currentTarget;
     WaypointPath path;
@@ -281,8 +282,11 @@ public class Tower : MonoBehaviour
         return Random.value < data.fogSwarmMissChance;
     }
 
+#if UNITY_EDITOR
     void OnDrawGizmosSelected()
     {
+        Gizmos.DrawSphere(transform.position + Vector3.up * healthbarOffset, 0.1f);
+
         if (data == null)
         {
             return;
@@ -290,6 +294,7 @@ public class Tower : MonoBehaviour
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(transform.position, GetRange());
     }
+#endif
 
     [ContextMenu("Test: Tower destroy")]
     public void DestroyTower()
@@ -311,6 +316,7 @@ public class Tower : MonoBehaviour
 
     void SpawnAttackEffect(Vector3 position, Quaternion rotation)
     {
+
         if (attackEffectPrefab == null)
         {
             return;
@@ -318,5 +324,6 @@ public class Tower : MonoBehaviour
 
         GameObject effect = Instantiate(attackEffectPrefab, position, rotation);
         Destroy(effect, attackEffectDuration);
+
     }
 }
