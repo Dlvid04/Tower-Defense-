@@ -8,6 +8,8 @@ public class Tower : MonoBehaviour
     public Projectile projectilePrefab;
     public GameObject attackEffectPrefab;
     public float attackEffectDuration = 0.2f;
+    public GameObject destroyEffectPrefab;
+    public float destroyEffectDuration = 1f;
 
     public Transform rotatingPart;
     public float healthbarOffset = 0;
@@ -310,6 +312,11 @@ public class Tower : MonoBehaviour
             TowerDestroyed(this);
         }
 
+        if (destroyEffectPrefab != null)
+        {
+            GameObject effect = Instantiate(destroyEffectPrefab, transform.position, destroyEffectPrefab.transform.rotation);
+            Destroy(effect, destroyEffectDuration);
+        }
         Debug.Log(data.towerName + " was destroyed");
         Destroy(gameObject);
     }

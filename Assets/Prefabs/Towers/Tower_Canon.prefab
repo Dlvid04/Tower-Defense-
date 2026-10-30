@@ -84,6 +84,8 @@ MonoBehaviour:
   projectilePrefab: {fileID: 90767986972771250, guid: d5313998c79787648bc8ea25ed148756, type: 3}
   attackEffectPrefab: {fileID: 0}
   attackEffectDuration: 0.2
+  destroyEffectPrefab: {fileID: 5887771772766720563, guid: 5c2dbf0a4384f7148984a369e8c67936, type: 3}
+  destroyEffectDuration: 1
   rotatingPart: {fileID: 9030541523306533578}
   healthbarOffset: 4.18
 --- !u!136 &963505249980782775
