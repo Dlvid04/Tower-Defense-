@@ -51,6 +51,8 @@ public class Health : MonoBehaviour
             return;
         }
 
+        GameManager.SpawnDamageNumber(transform.position + Vector3.up * healthbarOffset, amount);
+
         Current = Mathf.Max(0f, Current - amount);
 
         if(healthBar == null) healthBar = GameManager.Instance.AddHealthbar(this, healthbarOffset);

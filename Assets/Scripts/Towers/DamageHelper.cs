@@ -4,6 +4,7 @@ using UnityEngine;
 
 public static class DamageHelper
 {
+
     public static void DealDamage(TroopAgent troop, float damage, bool canBeBlocked = true)
     {
         if (canBeBlocked)
