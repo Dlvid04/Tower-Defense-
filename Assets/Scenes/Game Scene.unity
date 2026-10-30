@@ -6374,7 +6374,7 @@ PrefabInstance:
     - target: {fileID: 7686590434997942176, guid: aef61130d3ad6494c99ca8c223657ba5, type: 3}
       propertyPath: ShapeModule.m_MeshRenderer
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1887935876}
     - target: {fileID: 7686590434997942176, guid: aef61130d3ad6494c99ca8c223657ba5, type: 3}
       propertyPath: ShapeModule.radiusThickness
       value: 1
@@ -6389,7 +6389,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7686590434997942176, guid: aef61130d3ad6494c99ca8c223657ba5, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
-      value: 60
+      value: 80
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7130,7 +7130,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000061035156, y: -0.000015258789}
+  m_AnchoredPosition: {x: -0.000061035156, y: 0}
   m_SizeDelta: {x: 214.959, y: 63.3461}
   m_Pivot: {x: 0.9999997, y: 0.9999998}
 --- !u!95 &1685822292
@@ -7666,7 +7666,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &1887935873
 Transform:
@@ -9669,6 +9669,10 @@ PrefabInstance:
       propertyPath: isStormActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8000513311058865203, guid: dbab832cc047ef04cba4ecee904122bb, type: 3}
+      propertyPath: strikeVisualPrefab
+      value: 
+      objectReference: {fileID: 3225210473547729116, guid: 180f5dc0acdf25449a539d1a406f7bf5, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
