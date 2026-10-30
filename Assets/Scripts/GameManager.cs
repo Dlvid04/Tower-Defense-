@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static DamageNumber damageNumber;
+
     public static int GropsOnMap;
     static List<int> pasedID = new();
 
@@ -41,6 +43,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        damageNumber = Resources.Load<DamageNumber>("Damage Indicator");
+
         pasedID.Clear();
 
 
@@ -147,6 +151,12 @@ public class GameManager : MonoBehaviour
         g.transform.localPosition = Vector3.up * offset;
 
         return g.GetComponent<HealthBar>();
+    }
+
+    public static void SpawnDamageNumber(Vector3 pos, float amount)
+    {
+        DamageNumber n = Instantiate(damageNumber, pos, Quaternion.identity);
+        n.SetDamage(amount);
     }
 }
 
