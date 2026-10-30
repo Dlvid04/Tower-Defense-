@@ -18,13 +18,13 @@ public class WetterForshau : Editor
 
             Texture2D texture = v.GetImage(item).texture;
 
-            Rect rect = GUILayoutUtility.GetRect(194, 38);
+            Rect rect = GUILayoutUtility.GetRect(50, 50);
 
 
             GUI.DrawTextureWithTexCoords(
                 rect,
                 texture,
-                new Rect(0, 0, 1, 38f / 194f)
+                new Rect(0, 0, 1, 1)
             );
         }
     }
