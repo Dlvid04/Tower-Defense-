@@ -92,7 +92,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7063464682971235086
 RectTransform:
   m_ObjectHideFlags: 0
@@ -292,7 +292,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5876407949266880871
 RectTransform:
   m_ObjectHideFlags: 0
@@ -466,8 +466,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardVisuliser
   background: {fileID: 2472212505610651746}
-  title: {fileID: 353989221071020082}
-  cost: {fileID: 3298568056351454277}
+  background2: {fileID: 2634457947487238785}
 --- !u!114 &410733742787982953
 MonoBehaviour:
   m_ObjectHideFlags: 0

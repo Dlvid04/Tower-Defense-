@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1207168bbaeec4c94586e3c5be1fea, type: 3}
   m_Name: Card_Sturmbrecher
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  cardName: Skelett
+  image: {fileID: -8210870894116460807, guid: fcb2ff47003ba3f42b4b5d2d8d363395, type: 3}
   placeCost: 6
   agent: {fileID: 908574381549647404, guid: d58f43be755b4b84a92e49ccf7981733, type: 3}
   troopCount: 1

@@ -4,7 +4,8 @@ using UnityEngine;
 public class CardData : ScriptableObject
 {
     [Header("Visuals")]
-    public string cardName = "Card Name";
+    //public string cardName = "Card Name";
+    public Sprite image;
 
     [Header("Data")]
     [Range(0, 10)] public int placeCost = 1;

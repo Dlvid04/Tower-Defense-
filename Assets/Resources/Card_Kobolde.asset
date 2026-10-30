@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1207168bbaeec4c94586e3c5be1fea, type: 3}
   m_Name: Card_Kobolde
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  cardName: Spinnen
+  image: {fileID: -1111414086463496994, guid: 19b08d3578360cf439755eebab7ceeab, type: 3}
   placeCost: 3
   agent: {fileID: 1876954421843017163, guid: f341f7e618a932a40925963f2a46caf2, type: 3}
   troopCount: 5
