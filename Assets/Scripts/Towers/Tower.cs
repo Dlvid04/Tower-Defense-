@@ -222,7 +222,7 @@ public class Tower : MonoBehaviour
 
     TroopAgent FindNextChainTarget(Vector3 from, List<TroopAgent> alreadyHit)
     {
-        List<TroopAgent> troopsInRange = DamageHelper.GetTroopsInRadius(transform.position, GetRange());
+        List<TroopAgent> troopsInRange = DamageHelper.GetTroopsInRadius(from, data.chainRadius);
 
         TroopAgent best = null;
         float bestDistance = Mathf.Infinity;
